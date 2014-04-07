@@ -12,7 +12,7 @@ class SpotTemplateHelper_Bootspot extends SpotTemplateHelper {
 	 * the setting will not be saved.
 	 */
 	function getTemplatePreferences() {
-		return array('we1rdo' =>
+		return array('bootspot' =>
 						array('example_setting' => 1)
 					);
 	} # getTemplatePreferences
@@ -73,36 +73,36 @@ class SpotTemplateHelper_Bootspot extends SpotTemplateHelper {
 	} # getFilterIconList
 
 	function getSmileyList() {
-		return array('biggrin' => 'templates/we1rdo/smileys/biggrin.gif',
-				'bloos' => 'templates/we1rdo/smileys/bloos.gif',
-				'buigen' => 'templates/we1rdo/smileys/buigen.gif',
-				'censored' => 'templates/we1rdo/smileys/censored.gif',
-				'clown' => 'templates/we1rdo/smileys/clown.gif',
-				'confused' => 'templates/we1rdo/smileys/confused.gif',
-				'cool' => 'templates/we1rdo/smileys/cool.gif',
-				'exactly' => 'templates/we1rdo/smileys/exactly.gif',
-				'frown' => 'templates/we1rdo/smileys/frown.gif',
-				'grijns' => 'templates/we1rdo/smileys/grijns.gif',
-				'heh' => 'templates/we1rdo/smileys/heh.gif',
-				'huh' => 'templates/we1rdo/smileys/huh.gif',
-				'klappen' => 'templates/we1rdo/smileys/klappen.gif',
-				'knipoog' => 'templates/we1rdo/smileys/knipoog.gif',
-				'kwijl' => 'templates/we1rdo/smileys/kwijl.gif',
-				'lollig' => 'templates/we1rdo/smileys/lollig.gif',
-				'maf' => 'templates/we1rdo/smileys/maf.gif',
-				'ogen' => 'templates/we1rdo/smileys/ogen.gif',
-				'oops' => 'templates/we1rdo/smileys/oops.gif',
-				'pijl' => 'templates/we1rdo/smileys/pijl.gif',
-				'redface' => 'templates/we1rdo/smileys/redface.gif',
-				'respekt' => 'templates/we1rdo/smileys/respekt.gif',
-				'schater' => 'templates/we1rdo/smileys/schater.gif',
-				'shiny' => 'templates/we1rdo/smileys/shiny.gif',
-				'sleephappy' => 'templates/we1rdo/smileys/sleephappy.gif',
-				'smile' => 'templates/we1rdo/smileys/smile.gif',
-				'uitroepteken' => 'templates/we1rdo/smileys/uitroepteken.gif',
-				'vlag' => 'templates/we1rdo/smileys/vlag.gif',
-				'vraagteken' => 'templates/we1rdo/smileys/vraagteken.gif',
-				'wink' => 'templates/we1rdo/smileys/wink.gif');
+		return array('biggrin' => 'templates/bootspot/smileys/biggrin.gif',
+				'bloos' => 'templates/bootspot/smileys/bloos.gif',
+				'buigen' => 'templates/bootspot/smileys/buigen.gif',
+				'censored' => 'templates/bootspot/smileys/censored.gif',
+				'clown' => 'templates/bootspot/smileys/clown.gif',
+				'confused' => 'templates/bootspot/smileys/confused.gif',
+				'cool' => 'templates/bootspot/smileys/cool.gif',
+				'exactly' => 'templates/bootspot/smileys/exactly.gif',
+				'frown' => 'templates/bootspot/smileys/frown.gif',
+				'grijns' => 'templates/bootspot/smileys/grijns.gif',
+				'heh' => 'templates/bootspot/smileys/heh.gif',
+				'huh' => 'templates/bootspot/smileys/huh.gif',
+				'klappen' => 'templates/bootspot/smileys/klappen.gif',
+				'knipoog' => 'templates/bootspot/smileys/knipoog.gif',
+				'kwijl' => 'templates/bootspot/smileys/kwijl.gif',
+				'lollig' => 'templates/bootspot/smileys/lollig.gif',
+				'maf' => 'templates/bootspot/smileys/maf.gif',
+				'ogen' => 'templates/bootspot/smileys/ogen.gif',
+				'oops' => 'templates/bootspot/smileys/oops.gif',
+				'pijl' => 'templates/bootspot/smileys/pijl.gif',
+				'redface' => 'templates/bootspot/smileys/redface.gif',
+				'respekt' => 'templates/bootspot/smileys/respekt.gif',
+				'schater' => 'templates/bootspot/smileys/schater.gif',
+				'shiny' => 'templates/bootspot/smileys/shiny.gif',
+				'sleephappy' => 'templates/bootspot/smileys/sleephappy.gif',
+				'smile' => 'templates/bootspot/smileys/smile.gif',
+				'uitroepteken' => 'templates/bootspot/smileys/uitroepteken.gif',
+				'vlag' => 'templates/bootspot/smileys/vlag.gif',
+				'vraagteken' => 'templates/bootspot/smileys/vraagteken.gif',
+				'wink' => 'templates/bootspot/smileys/wink.gif');
 	} # getSmileyList
 	
 	# Geeft een lijst van onze static files terug die door de static page gelezen wordt
@@ -116,37 +116,23 @@ class SpotTemplateHelper_Bootspot extends SpotTemplateHelper {
 								'js/jquery/jquery.form.js',
 								'js/jquery-json/jquery.json-2.3.js',
 								'js/sha1/jquery.sha1.js',
-                                'templates/we1rdo/js/jquery.address.js',
+                                'templates/bootspot/js/jquery.address.js',
 								'js/posting/posting.js',
 								'js/dynatree/jquery.dynatree.min.js',
-								'templates/we1rdo/js/scripts.js',
-                                'templates/we1rdo/js/spotdialogs.js',
-                                'templates/we1rdo/js/sabpanel.js',
-								'templates/we1rdo/js/we1rdopost.js',
-								'templates/we1rdo/js/treehelper.js',
-								'templates/we1rdo/js/jquery.ui.nestedSortable.js',
-								'templates/we1rdo/js/jquery.tipTip.minified.js'
+								'templates/bootspot/js/scripts.js',
+                                'templates/bootspot/js/spotdialogs.js',
+                                'templates/bootspot/js/sabpanel.js',
+								'templates/bootspot/js/bootspotpost.js',
+								'templates/bootspot/js/treehelper.js',
+								'templates/bootspot/js/jquery.ui.nestedSortable.js',
+								'templates/bootspot/js/jquery.tipTip.minified.js'
 								);
 				break;
 			} # case js
-			
-			case 'css'	: {
-				return array('js/dynatree/skin-vista/ui.dynatree.css',
-							 'templates/we1rdo/css/jquery-ui-1.8.23.custom.css',
-							 'templates/we1rdo/css/spoticons.css',
-							 'templates/we1rdo/css/style.css',
-							 'templates/we1rdo/css/tipTip.css'
-							 );
-				break;
-			} # case css
-							 
-			case 'ico'	: {
-				return array('images/favicon.ico');
-				break;
-			} # case 'ico'
+						
 		} # switch
 		
 		return array();
 	} # getStaticFiles 
 	
-} # class We1rdoTemplateHelper
+} # class bootspotTemplateHelper
