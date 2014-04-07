@@ -94,91 +94,185 @@ echo "</th>";
 					</tr>
 				</tbody>
 			</table>
-			<table class="spotdetails">
-				<tr>
-					<td class="img" style="min-width:<?php echo $imgMinWidth; ?>px;">
-						<a onclick="toggleImageSize()" class="postimage">
-							<img class="img-rounded" src="<?php echo $tplHelper->makeImageUrl($spot, 260, 260); ?>" alt="<?php echo $spot['title'];?>">
+			
+		</div>
+		
+			<?php 
+			if (!$spot['verified'] || $tplHelper->isModerated($spot) || $isBlacklisted) {
+				echo '<div class="alert alert-dismissable alert-danger">';
+				echo '<button type="button" class="close" data-dismiss="alert">×</button>';
+				if (!$spot['verified']) {
+					echo '<p><i class="fa fa-warning"></i> ' . _('This spot is not verified, the name of the sender has not been confirmed') . '</p>';
+				}
+				if ($tplHelper->isModerated($spot)) {
+					echo '<p><i class="fa fa-warning"></i> ' . _('This spot is marked as potentional spam') . '</p>';
+				}
+				if ($isBlacklisted) {
+					echo '<p><i class="fa fa-warning"></i> ' . _('This spotter is already blacklisted') . '</p>';
+				}
+				echo '</div>';
+			} 
+			?>
+			<?php 
+			if ($isWhitelisted) {
+				echo '<div class="alert alert-dismissable alert-info">';
+				echo '<button type="button" class="close" data-dismiss="alert">×</button>';
+				echo '<p><i class="fa fa-thumbs-up"></i> ' . _('This spotter is already whitelisted') . '</p>';
+				echo '</div>';
+			} 
+			?>
+			
+			<div class="container">
+				<div class="col-lg-12">
+					
+					<div class="col-lg-3">
+						<a onclick="toggleImageSize()" class="thumbnail">
+							<img src="<?php echo $tplHelper->makeImageUrl($spot, 260, 260); ?>" alt="<?php echo $spot['title'];?>">
 						</a>
-					</td>
-					<td class="info">
-<?php if (!$spot['verified'] || $tplHelper->isModerated($spot) || $isBlacklisted) {
-	echo "<div class='warning'>";
-	if (!$spot['verified']) {
-		echo _('This spot is not verified, the name of the sender has not been confirmed') . "<br>";
-	}
-	if ($tplHelper->isModerated($spot)) {
-		echo _('This spot is marked as potentional spam') . "<br>";
-	}
-	if ($isBlacklisted) {
-		echo _('This spotter is already blacklisted') . "<br>";
-	}
-	echo "</div>";
-} ?>
-<?php if ($isWhitelisted) {
-	echo "<div class='announce'>";
-	echo _('This spotter is already whitelisted') . "<br>";
-	echo "</div>";
-} ?>
-						<table class="spotinfo">
+					</div>
+				
+					<div class="col-lg-9">
+						<table class="table">
 							<tbody>
-								<tr><th> <?php echo _('Category'); ?> </th> <td><a href="<?php echo $tplHelper->makeCatUrl($spot); ?>" title='<?php echo _('Find spots in this category'); ?> "<?php echo $spot['catname']; ?>"'><?php echo $spot['catname']; ?></a></td> </tr>
-<?php
-		foreach(array('a', 'b', 'c', 'd', 'z') as $subcatType) {
-            $subList = explode('|', $spot['subcat' . $subcatType]);
-            foreach($subList as $sub) {
-                if (!empty($sub)) {
-                    echo "\t\t\t\t\t\t<tr><th> " . SpotCategories::SubcatDescription($spot['category'], $subcatType) .  "</th>";
-                    echo "<td><a href='" . $tplHelper->makeSubCatUrl($spot, $sub) . "' title='" . _('Find spots in this category') . ' ' . SpotCategories::Cat2Desc($spot['category'], $sub) . "'>" . SpotCategories::Cat2Desc($spot['category'], $sub) . "</a></td> </tr>\r\n";
-                } # if
-            } # if
-		} # foreach
-?>
-								<tr><th> <?php echo _('Date'); ?> </th> <td title='<?php echo $tplHelper->formatDate($spot['stamp'], 'force_spotlist'); ?>'> <?php echo $tplHelper->formatDate($spot['stamp'], 'spotdetail'); ?> </td> </tr>
-								<tr><th> <?php echo _('Size'); ?> </th> <td> <?php echo $tplHelper->format_size($spot['filesize']); ?> </td> </tr>
-								<tr><td class="break" colspan="2">&nbsp;</td> </tr>
-                                <?php
-                                    if ($spot['mcid'] !== null) {
+								<tr>
+									<th><?php echo _('Category'); ?></th>
+									<td><a href="<?php echo $tplHelper->makeCatUrl($spot); ?>" title='<?php echo _('Find spots in this category'); ?> "<?php echo $spot['catname']; ?>"'><?php echo $spot['catname']; ?></a></td>
+								</tr>
+								<?php
+								foreach(array('a', 'b', 'c', 'd', 'z') as $subcatType) {
+									$subList = explode('|', $spot['subcat' . $subcatType]);
+									foreach($subList as $sub) {
+										if (!empty($sub)) {
+								?>
+								<tr>
+									<th><?php echo SpotCategories::SubcatDescription($spot['category'], $subcatType); ?></th>
+									<td><a href="<?php echo $tplHelper->makeSubCatUrl($spot, $sub); ?>" title="<?php echo _('Find spots in this category') . ' ' . SpotCategories::Cat2Desc($spot['category'], $sub); ?>"><?php echo SpotCategories::Cat2Desc($spot['category'], $sub); ?></a></td>
+								</tr>
+								<?php
+										} # if
+									} # foreach
+								} # foreach
+								?>
+								<tr>
+									<th><?php echo _('Date'); ?></th> 
+									<td title='<?php echo $tplHelper->formatDate($spot['stamp'], 'force_spotlist'); ?>'> <?php echo $tplHelper->formatDate($spot['stamp'], 'spotdetail'); ?> </td> 
+								</tr>
+								<tr>
+									<th><?php echo _('Size'); ?></th> 
+									<td><?php echo $tplHelper->format_size($spot['filesize']); ?></td> 
+								</tr>
+								<tr>
+									<td colspan="2">&nbsp;</td>
+								</tr>
+								<?php
+                                if ($spot['mcid'] !== null) {
                                 ?>
-                                        <tr><th> <?php echo _('Collection'); ?> </th> <td> <a href="<?php echo $tplHelper->makeCollectionIdSearchUrl($spot); ?>"><?php echo $spot['cleantitle']; if ($spot['release_year'] !== null) { echo ' (' . $spot['release_year'] . ')'; } ?> </a> </td> </tr>
+									<tr>
+										<th><?php echo _('Collection'); ?></th>
+										<td><a href="<?php echo $tplHelper->makeCollectionIdSearchUrl($spot); ?>"><?php echo $spot['cleantitle']; if ($spot['release_year'] !== null) { echo ' (' . $spot['release_year'] . ')'; } ?></a></td>
+									</tr>
                                 <?php
-                                        if (!empty($episodeString)) {
+                                    if (!empty($episodeString)) {
                                 ?>
-                                        <tr><th> <?php echo _('Episode'); ?> </th> <td> <?php echo $episodeString; ?> </td> </tr>
-                                <?php
-                                        }
-                                ?>
-                                        <tr><td class="break" colspan="2">&nbsp;</td> </tr>
+										<tr>
+											<th><?php echo _('Episode'); ?></th>
+											<td><?php echo $episodeString; ?></td>
+										</tr>
                                 <?php
                                     } // if
                                 ?>
-								<tr><th> <?php echo _('Website'); ?> </th> <td> <a href='<?php echo $spot['website']; ?>' rel="nofollow"><?php echo $spot['website'];?></a> </td> </tr>
-								<tr> <td class="break" colspan="2">&nbsp;</td> </tr>
-								<tr> <th> <?php echo _('Sender'); ?> </th> <td> <a href="<?php echo $tplHelper->makePosterUrl($spot); ?>" title='<?php echo sprintf(_('Find spots from %s'), $spot['poster']); ?>'><?php echo $spot['poster']; ?></a>
-								<?php if (!empty($spot['spotterid'])) { ?> (<a href="<?php echo $tplHelper->makeSpotterIdUrl($spot); ?>" title='<?php echo sprintf(_('Find spots from %s'), $spot['spotterid']);?>'><?php echo $spot['spotterid']; ?></a>)<?php } ?>
-								<?php if ($allow_blackList) { ?> <a class="delete blacklistuserlink_<?php echo htmlspecialchars($spot['spotterid']); ?>" title="<?php echo _('Blacklist this sender'); ?>" onclick="blacklistSpotterId('<?php echo htmlspecialchars($spot['spotterid']); ?>');">&nbsp;&nbsp;&nbsp;</a><?php } ?>
-								<?php if ($allow_whiteList) { ?> <a class="whitelist blacklistuserlink_<?php echo htmlspecialchars($spot['spotterid']); ?>" title="<?php echo _('Whitelist this sender'); ?>" onclick="whitelistSpotterId('<?php echo htmlspecialchars($spot['spotterid']); ?>');">&nbsp;&nbsp;&nbsp;</a><?php } ?>
-								<?php if ((!empty($spot['spotterid'])) && ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_filters, ''))) { ?> <a href="" class="addspotterasfilter" title="<?php echo _("Add filter for this spotter"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'SpotterID', '<?php echo urlencode($spot['spotterid']); ?>', 'Zoek spots van &quot;<?php echo urlencode($spot['poster']); ?>&quot;', 'addspotterasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <?php } ?> 
-								</td> </tr>
-								<tr> <th> <?php echo _('Tag'); ?> </th> <td> <a href="<?php echo $tplHelper->makeTagUrl($spot); ?>" title='<?php echo sprintf(_('Search spots with the tag: %s'), $spot['tag']); ?>'><?php echo $spot['tag']; ?></a> 
-								<?php if ((!empty($spot['tag'])) && ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_filters, ''))) { ?> <a href="#" class="addtagasfilter" title="<?php echo _("Add filter for this tag"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'Tag', '<?php echo urlencode($spot['tag']); ?>', 'Zoek op tag &quot;<?php echo urlencode($spot['tag']); ?>&quot;', 'addtagasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <?php } ?> 
-								</td> </tr>
-								<tr> <td class="break" colspan="2">&nbsp;</td> </tr>
-								<tr> <th> <?php echo _('Searchengine'); ?></th> <td> <a href='<?php echo $spot['searchurl']; ?>'><?php echo _('Search'); ?></a> </td> </tr>
-<?php if ($show_nzb_button) { ?>		
-								<tr> <th> <?php echo _('NZB'); ?></th> <td> <a href='<?php echo $tplHelper->makeNzbUrl($spot); ?>' title='<?php echo _('Download NZB (n)'); ?>'><?php echo _('NZB'); ?></a> </td> </tr>
-<?php } ?>
-
-								<tr> <td class="break" colspan="2">&nbsp;</td> </tr>
-								<tr> <th> <?php echo _('Number of spamreports'); ?> </th> <td> <?php echo $spot['reportcount']; ?> </td> </tr>
-<?php if ($show_spot_edit && $spot['editstamp']) { ?>
-								<tr> <th> <?php echo _('Spot edited'); ?> </th> <td title='<?php echo $tplHelper->formatDate($spot['editstamp'], 'force_spotlist'); ?>'> <?php echo $tplHelper->formatDate($spot['editstamp'], 'spotdetail'); ?> <?php if ($show_editor) echo "(" . $spot['editor'] . ")"?></td> </tr>
-<?php } ?>
-								</tbody>
+                                    <tr>
+										<td colspan="2">&nbsp;</td>
+									</tr>
+                                <?php
+                                } // if
+                                ?>
+								<tr>
+									<th><?php echo _('Website'); ?></th>
+									<td><a href='<?php echo $spot['website']; ?>' rel="nofollow"><?php echo $spot['website'];?></a></td>
+								</tr>
+								<tr>
+									<td colspan="2">&nbsp;</td>
+								</tr>
+								<tr>
+									<th><?php echo _('Sender'); ?></th>
+									<td><a href="<?php echo $tplHelper->makePosterUrl($spot); ?>" title='<?php echo sprintf(_('Find spots from %s'), $spot['poster']); ?>'><?php echo $spot['poster']; ?></a>
+									<?php 
+									if (!empty($spot['spotterid'])) { 
+									?> 
+										(<a href="<?php echo $tplHelper->makeSpotterIdUrl($spot); ?>" title='<?php echo sprintf(_('Find spots from %s'), $spot['spotterid']);?>'><?php echo $spot['spotterid']; ?></a>)
+									<?php 
+									} 
+									if ($allow_blackList) { 
+									?>
+										<a class="delete blacklistuserlink_<?php echo htmlspecialchars($spot['spotterid']); ?>" title="<?php echo _('Blacklist this sender'); ?>" onclick="blacklistSpotterId('<?php echo htmlspecialchars($spot['spotterid']); ?>');">&nbsp;&nbsp;&nbsp;</a>
+									<?php 
+									} 
+									if ($allow_whiteList) { 
+									?> 
+										<a class="whitelist blacklistuserlink_<?php echo htmlspecialchars($spot['spotterid']); ?>" title="<?php echo _('Whitelist this sender'); ?>" onclick="whitelistSpotterId('<?php echo htmlspecialchars($spot['spotterid']); ?>');">&nbsp;&nbsp;&nbsp;</a>
+									<?php 
+									} 
+									if ((!empty($spot['spotterid'])) && ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_filters, ''))) { 
+									?> 
+										<a href="" class="addspotterasfilter" title="<?php echo _("Add filter for this spotter"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'SpotterID', '<?php echo urlencode($spot['spotterid']); ?>', 'Zoek spots van &quot;<?php echo urlencode($spot['poster']); ?>&quot;', 'addspotterasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<?php 
+									} 
+									?> 
+									</td>
+								</tr>
+								<tr>
+									<th><?php echo _('Tag'); ?></th>
+									<td><a href="<?php echo $tplHelper->makeTagUrl($spot); ?>" title='<?php echo sprintf(_('Search spots with the tag: %s'), $spot['tag']); ?>'><?php echo $spot['tag']; ?></a> 
+									<?php 
+									if ((!empty($spot['tag'])) && ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_filters, ''))) { 
+									?> 
+										<a href="#" class="addtagasfilter" title="<?php echo _("Add filter for this tag"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'Tag', '<?php echo urlencode($spot['tag']); ?>', 'Zoek op tag &quot;<?php echo urlencode($spot['tag']); ?>&quot;', 'addtagasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<?php 
+									} 
+									?> 
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">&nbsp;</td>
+								</tr>
+								<tr>
+									<th><?php echo _('Searchengine'); ?></th>
+									<td><a href='<?php echo $spot['searchurl']; ?>'><?php echo _('Search'); ?></a></td>
+								</tr>
+								<?php 
+								if ($show_nzb_button) { 
+								?>		
+									<tr>
+										<th><?php echo _('NZB'); ?></th>
+										<td><a href='<?php echo $tplHelper->makeNzbUrl($spot); ?>' title='<?php echo _('Download NZB (n)'); ?>'><?php echo _('NZB'); ?></a></td>
+									</tr>
+								<?php 
+								} 
+								?>
+								<tr>
+									<td colspan="2">&nbsp;</td>
+								</tr>
+								<tr>
+									<th><?php echo _('Number of spamreports'); ?></th>
+									<td><?php echo $spot['reportcount']; ?></td>
+								</tr>
+								<?php 
+								if ($show_spot_edit && $spot['editstamp']) { 
+								?>
+									<tr>
+										<th><?php echo _('Spot edited'); ?></th>
+										<td title='<?php echo $tplHelper->formatDate($spot['editstamp'], 'force_spotlist'); ?>'> <?php echo $tplHelper->formatDate($spot['editstamp'], 'spotdetail'); ?> <?php if ($show_editor) echo "(" . $spot['editor'] . ")"?></td>
+									</tr>
+								<?php 
+								} 
+								?>
+							</tbody>
 						</table>
-					</td>
-				</tr>
-			</table>
+					</div>				
+				</div>
+			</div>
+								
 			<div class="description">
 				<h4><?php echo _('Post Description'); ?></h4>
 				<pre><?php echo $spot['description']; ?></pre>
