@@ -186,7 +186,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			 "<td class='date'><i class='fa fa-clock-o fa-2x' rel='tooltip' title='". $tplHelper->formatDate($spot['stamp'], 'spotlist') ."'></i></td>";
 
 		if ($show_filesize) {
-			echo "<td class='filesize'><font-size='12px'>" . $tplHelper->format_size($spot['filesize']) . "</font></td>";
+			echo "<td class='filesize'><i class='fa fa-floppy-o fa-2x' rel='tooltip' title='". $tplHelper->format_size($spot['filesize']) ."'></i></td>";
 		}
 		
 		# only display the NZB button from 24 nov or later
