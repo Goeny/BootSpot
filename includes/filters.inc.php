@@ -91,10 +91,10 @@
 				
 			<?php if (($tplHelper->allowed(SpotSecurity::spotsec_edit_own_userprefs, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_view_spotweb_updates, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_edit_other_users, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_edit_securitygroups, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_list_all_users, ''))) { ?>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> <?php echo _('Config'); ?> <b class="caret"></b></a>
+				<li class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i> <?php echo _('Config'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<?php if ($tplHelper->allowed(SpotSecurity::spotsec_edit_own_userprefs, '')) { ?>
-						<li><a href="<?php echo $tplHelper->makeEditUserPrefsUrl($currentSession['user']['userid']); ?>"><i class="fa fa-tachometer"></i> <?php echo _('Change preferences'); ?></a></li>
+						<li><a href="<?php echo $tplHelper->makeEditUserPrefsUrl($currentSession['user']['userid']); ?>"><i class="fa fa-cog"></i> <?php echo _('Change preferences'); ?></a></li>
 						<?php } ?>
 						<?php if (($tplHelper->allowed(SpotSecurity::spotsec_view_spotweb_updates, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, ''))) { ?>
 						<li><a href="?page=editsettings"><i class="fa fa-wrench"></i> <?php echo _('Settings'); ?></a></li>
