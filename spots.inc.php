@@ -183,7 +183,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		}		
 		echo "<td class='genre'><a href='" . $spot['subcaturl'] . "' title='" . sprintf(_('Search spot in category %s'), $spot['catdesc']) . "'>" . $spot['catdesc'] . "</a></td>" .
 			 "<td class='poster'><a href='" . $spot['posterurl'] . "' title='" . sprintf(_('Search spot from %s'), $spot['poster']) . "'>" . $markSpot . $spot['poster'] . "</a></td>" .
-			 "<td class='date' title='" . $dateTitleText . "'><i class='fa fa-clock-o fa-2x'></i></td>";
+			 "<td class='date'><i class='fa fa-clock-o fa-2x' rel='tooltip' title='". $tplHelper->formatDate($spot['stamp'], 'spotlist') ."'></i></td>";
 
 		if ($show_filesize) {
 			echo "<td class='filesize'><font-size='12px'>" . $tplHelper->format_size($spot['filesize']) . "</font></td>";

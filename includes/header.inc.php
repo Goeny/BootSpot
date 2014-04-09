@@ -30,6 +30,11 @@
 		<script type='text/javascript'>
 			// console.timeEnd("parse-css");
 		</script>
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				$("[rel=tooltip]").tooltip({ placement: 'right'});
+			});
+		</script>
 	</head>
 	<body>
 		<div id='editdialogdiv'></div>
