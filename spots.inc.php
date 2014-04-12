@@ -57,10 +57,17 @@
 <?php } ?>
 <?php if ($show_nzb_button) { ?>
 							<th class='nzb'> <?php echo _('NZB'); ?> </th>
-<?php } ?>			
+<?php } ?>
+<?php if ($show_multinzb_checkbox && !count($spots) == 0) { ?>
+							<th class='multinzb'> 
+								<form action="" method="GET" id="checkboxget" name="checkboxget">
+									<input type='hidden' name='page' value='getnzb'>
+									<input type='checkbox' name='checkall' onclick='toggleAllMultiNzb();'>
+							</th>
+<?php } ?>		
 <?php $nzbHandlingTmp = $currentSession['user']['prefs']['nzbhandling'];
 if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlingTmp['action'])) && ($nzbHandlingTmp['action'] != 'disable')) { ?>
-							<th class='sabnzbd'><a class="toggle" onclick="toggleSidebarPanel('.sabnzbdPanel')" title='<?php echo sprintf(_('Open "%s" panel'), $tplHelper->getNzbHandlerName()); ?>'></a></th>
+							<th class='sabnzbd'><a class="toggle" onclick="toggleSidebarPanel('.sabnzbdPanel')" title='<?php echo sprintf(_('Open "%s" panel'), $tplHelper->getNzbHandlerName()); ?>'><i class="fa fa-download"></i></a></th>
 <?php } ?>						
 						</tr>
 					</thead>
@@ -192,7 +199,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		# only display the NZB button from 24 nov or later
 		if ($spot['stamp'] > 1290578400 ) {
 			if ($show_nzb_button) {
-				echo "<td class='nzb'><a href='" . $tplHelper->makeNzbUrl($spot) . "' title ='" . _('Download NZB (n)') . "' class='nzb'>NZB";
+				echo "<td class='nzb'><a href='" . $tplHelper->makeNzbUrl($spot) . "' rel='tooltip' title ='" . _('Download NZB (n)') . "' class='nzb'>NZB";
 				
 				if ($spot['hasbeendownloaded']) {
 					echo '*';
@@ -200,13 +207,18 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 				
 				echo "</a></td>";
 			} # if
-
+			if ($show_multinzb_checkbox) {
+				$multispotid = htmlspecialchars($spot['messageid']);
+				echo "<td class='multinzb'>";
+				echo "<input onclick='multinzb()' type='checkbox' name='".htmlspecialchars('messageid[]')."' value='".$multispotid."'>";
+				echo "</td>";
+			} # if
 			# display the SABnzbd button
 			if (!empty($spot['sabnzbdurl'])) {
 				if ($spot['hasbeendownloaded']) {
-					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" class='sab_".$spot['id']." sabnzbd-button succes' title='" . _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)') . "'> </a></td>";
+					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" class='sab_".$spot['id']." sabnzbd-button succes' rel='tooltip' title='" . _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)') . "'><i class='fa fa-download'></i> </a></td>";
 				} else {
-					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" class='sab_".$spot['id']." sabnzbd-button' title='" . _('Add NZB to SABnzbd queue (s)'). "'> </a></td>";
+					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" class='sab_".$spot['id']." sabnzbd-button' rel='tooltip' title='" . _('Add NZB to SABnzbd queue (s)'). "'><i class='fa fa-download'></i> </a></td>";
 				} # else
 			} # if
 		} else {
