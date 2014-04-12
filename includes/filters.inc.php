@@ -36,6 +36,7 @@
 							<li><a href="<?php echo $tplHelper->getPageUrl('markallasread'); ?>" onclick="markAsRead()" class="greyButton markasread"><i class="fa fa-eye-slash"></i> <?php echo _('Mark everything as read'); ?></a></li>
 						<?php } ?>
 						<li><a data-target="#myModal" href="templates/bootspot/lib/sabnzbd.panel.php" data-toggle="modal"><i class="fa fa-download"></i> SABnzbd Panel</a></li>
+						<li><a href="https://github.com/Goeny/BootSpot" target="_blank"><i class="fa fa-github-alt"></i> BootSpot on Github</a></li>
 					</ul>
 				</li>
 			</ul>	
