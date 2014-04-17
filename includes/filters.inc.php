@@ -35,7 +35,11 @@
 						<?php if ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_seenlist, '')) { ?>
 							<li><a href="<?php echo $tplHelper->getPageUrl('markallasread'); ?>" onclick="markAsRead()" class="greyButton markasread"><i class="fa fa-eye-slash"></i> <?php echo _('Mark everything as read'); ?></a></li>
 						<?php } ?>
-						<li><a data-target="#myModal" href="templates/bootspot/lib/sabnzbd.panel.php" data-toggle="modal"><i class="fa fa-download"></i> SABnzbd Panel</a></li>
+						<?php if ($tplHelper->allowed(SpotSecurity::spotsec_view_spotweb_updates, '')) { 
+						?>
+							<li><a href="?page=versioncheck" data-target="#myModal" data-toggle="modal" title="<?php echo _('Spotweb updates'); ?>"><i class="fa fa-medkit"></i> <?php echo _('Spotweb updates');?></a></li>
+						<?php } ?>
+						<li><a data-target="#mySAB" data-toggle="modal"><i class="fa fa-download"></i> SABnzbd Panel</a></li>
 						<li><a href="https://github.com/Goeny/BootSpot" target="_blank"><i class="fa fa-github-alt"></i> BootSpot on Github</a></li>
 					</ul>
 				</li>
@@ -92,13 +96,13 @@
 				<li class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i> <?php echo _('Config'); ?> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<?php if ($tplHelper->allowed(SpotSecurity::spotsec_edit_own_userprefs, '')) { ?>
-						<li><a href="<?php echo $tplHelper->makeEditUserPrefsUrl($currentSession['user']['userid']); ?>"><i class="fa fa-cog"></i> <?php echo _('Change preferences'); ?></a></li>
+						<li><a data-target="#myModal" data-toggle="modal" href="<?php echo $tplHelper->makeEditUserPrefsUrl($currentSession['user']['userid']); ?>"><i class="fa fa-cog"></i> <?php echo _('Change preferences'); ?></a></li>
 						<?php } ?>
 						<?php if (($tplHelper->allowed(SpotSecurity::spotsec_view_spotweb_updates, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, ''))) { ?>
 						<li><a href="?page=editsettings"><i class="fa fa-wrench"></i> <?php echo _('Settings'); ?></a></li>
 						<?php } ?>
 						<?php if (($tplHelper->allowed(SpotSecurity::spotsec_edit_other_users, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_edit_securitygroups, '')) || ($tplHelper->allowed(SpotSecurity::spotsec_list_all_users, ''))) { ?>
-						<li><a href="?page=render&amp;tplname=usermanagement"><i class="fa fa-users"></i> <?php echo _('User &amp; group management'); ?></a></li>
+						<li><a data-target="#myModal" data-toggle="modal" href="?page=render&amp;tplname=usermanagement"><i class="fa fa-users"></i> <?php echo _('User &amp; group management'); ?></a></li>
 						<?php } ?>
 					</ul>
 				</li>
@@ -235,23 +239,107 @@
 </div>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title">Modal title</h4>
+
+            </div>
+            <div class="modal-body"><div class="te"></div></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- BEGIN SABNZBD PANEL -->
+<div class="modal fade sabnzbdPanel" id="mySAB" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+        <h4 class="modal-title" id="myModalLabel">
+        	<img src="templates/bootspot/images/sablogo.png" height="32" /> 
+            SABnzbd Panel
+        </h4>
       </div>
-      <div class="modal-body">
-      
-      </div>
+      <div class="modal-body sabnzbdPanel">
+<div class="sidebarPanel sabnzbdPanel">
+<?php 
+if ($tplHelper->allowed(SpotSecurity::spotsec_use_sabapi, '')) { 
+	$apikey = $tplHelper->apiToHash($currentSession['user']['apikey']);
+	echo "<input class='apikey' type='hidden' value='".$apikey."'>";
+	if ($tplHelper->getNzbHandlerApiSupport() === false){
+?>
+		<table class="sabInfo table" summary="SABnzbd infomatie">
+			<tr>
+				<td><?php echo _('Selected NZB download methode doesn\'t support sidepanel'); ?></td>
+			</tr>
+		</table>			
+<?php	
+	}
+	else{
+?>		<table class="sabInfo table" summary="SABnzbd infomatie">
+			<tr>
+				<td><?php echo _('Status:'); ?></td><td class="state"></td>
+			</tr>
+			<tr>
+				<td><?php echo _('Free storage:'); ?></td><td class="diskspace"></td>
+			</tr>
+			<tr>
+				<td><?php echo _('Speed:'); ?></td><td class="speed"></td>
+			</tr>
+			<tr>
+				<td><?php echo _('Max. speed:'); ?></td><td class="speedlimit"></td>
+			</tr>
+			<tr>
+				<td><?php echo _('To go:'); ?></td><td class="timeleft"></td>
+			</tr>
+			<tr>
+				<td><?php echo _('ETA:'); ?></td><td class="eta"></td>
+			</tr>
+			<tr>
+				<td><?php echo _('Queue:'); ?></td><td class="mb"></td>
+			</tr>
+		</table>
+		<canvas id="graph table" width="215" height="125"></canvas>
+		<table class="sabGraphData" summary="SABnzbd Graph Data" style="display:none;">
+			<tbody>
+				<tr>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<h4><?php echo _('Queue'); ?></h4>
+		<table class="sabQueue table" summary="SABnzbd queue">
+			<tbody>
+				<tr>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<?php 	
+		}
+	} 
+?>
+</div>
+</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>	
+<!-- EINDE SABNZBD PANEL -->
+
 
 </div>
 </nav>

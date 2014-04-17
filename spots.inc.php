@@ -216,9 +216,9 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			# display the SABnzbd button
 			if (!empty($spot['sabnzbdurl'])) {
 				if ($spot['hasbeendownloaded']) {
-					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" class='sab_".$spot['id']." sabnzbd-button succes' rel='tooltip' title='" . _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)') . "'><i class='fa fa-download'></i> </a></td>";
+					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" rel='tooltip' title='" . _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)') . "'><i class='sab_".$spot['id']." fa fa-check fa-2x'></i> </a></td>";
 				} else {
-					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" class='sab_".$spot['id']." sabnzbd-button' rel='tooltip' title='" . _('Add NZB to SABnzbd queue (s)'). "'><i class='fa fa-download'></i> </a></td>";
+					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" rel='tooltip' title='" . _('Add NZB to SABnzbd queue (s)'). "'><i class='sab_".$spot['id']." fa fa-download fa-2x'></i> </a></td>";
 				} # else
 			} # if
 		} else {

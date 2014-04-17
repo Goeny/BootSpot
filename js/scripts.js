@@ -681,7 +681,7 @@ function toggleSidebarPanel(id) {
 
 // SabNZBd knop; url laden via ajax (regel loading en succes status)
 function downloadSabnzbd(id,url, dltype) {
-	$(".sab_"+id).removeClass("succes").addClass("loading");
+	$(".sab_"+id).removeClass("fa-check").addClass("fa-spinner fa-spin");
 	
 	/*
 	 * Get the URL, do not rely on the result handler always
@@ -695,9 +695,10 @@ function downloadSabnzbd(id,url, dltype) {
         dataType: "json",
         success: function(data) {
             if (data.result == "success") {
-                $(".sab_"+id).removeClass("loading").addClass("succes");
+                $(".sab_"+id).removeClass("fa-spinner fa-spin").addClass("fa-check");
+                $(".sab_"+id).removeClass("fa-download").addClass("fa-check");
             } else {
-                $(".sab_"+id).removeClass("loading").addClass("failure");
+                $(".sab_"+id).removeClass("fa-spinner fa-spin").addClass("fa-thumbs-o-down");
             } // else
         } // success
     }); // ajax call om de form te submitten
@@ -708,7 +709,7 @@ function downloadSabnzbd(id,url, dltype) {
      * we just always set it to green
      */
 	if (dltype == 'client-sabnzbd') {
-    	setTimeout( function() { $(".sab_"+id).removeClass("loading").addClass("succes"); }, 1000);
+    	setTimeout( function() { $(".sab_"+id).removeClass("fa-spinner fa-spin").addClass("fa-check"); }, 1000);
     } // if
 }
 

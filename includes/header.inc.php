@@ -34,9 +34,10 @@
 			$(document).ready(function(){
 				$("[rel=tooltip]").tooltip({ placement: 'right'});
 			});
-		</script>
+            </script>
+     
+   
+   <script src="templates/bootspot/js/bootstrap-datepicker.js"></script>
 	</head>
 	<body>
-		<div id='editdialogdiv'></div>
-		<div id="overlay"></div>
 		<div class="container" id="container">

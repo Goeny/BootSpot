@@ -279,16 +279,19 @@ echo "</th>";
 			</div>
 			
 <?php if ($tplHelper->allowed(SpotSecurity::spotsec_view_comments, '')) { ?>
-			<div class="comments" id="comments">
+			<div class="col col-lg-12">
 				<h4><?php echo _('Comments'); ?> <span class="commentcount"># 0</span></h4>
 				<ul id="commentslist">
-<?php 
-if ($tplHelper->allowed(SpotSecurity::spotsec_post_comment, '')) { 
-	if ($currentSession['user']['userid'] > 2) { 
-		echo "<li class='addComment'>";
-		echo "<a class='togglePostComment' title='" . _('Add comment (open/close windows)') . "'>" . _('Add comment') . "<span></span></a><div><div></div>";
-		include "postcomment.inc.php"; 
-		echo "</div></li>";
+				<?php 
+				if ($tplHelper->allowed(SpotSecurity::spotsec_post_comment, '')) { 
+					if ($currentSession['user']['userid'] > 2) { 
+						echo "<li class='addComment'>";
+						echo "<a class='togglePostComment' title='" . _('Add comment (open/close windows)') . "'>" . 
+							_('Add comment') . "<span></span></a>
+							<div>
+								<div></div>";
+						include "postcomment.inc.php"; 
+						echo "</div></li>";
 	}
 } ?>
 				</ul>

@@ -32,59 +32,71 @@
     } # if
     echo "<script type='text/javascript'>var retrieveNewerThanDate = '" . strftime('%d-%m-%Y', $retrieve_newer_than) . "';</script>";
 ?>
-</div>
-	<div id='toolbar'>
-		<div class="closeeditsettings"><p><a class='toggle' href='<?php echo $tplHelper->makeBaseUrl('path');?>'><?php echo _('Back to mainview'); ?></a></p></div>
-	</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><?php echo _('Settings'); ?></h3>
+  </div>
+  <div class="panel-body">
+	
 <form class="editsettingsform" name="editsettingsform" action="<?php echo $tplHelper->makeEditSettingsAction(); ?>" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="editsettingsform[xsrfid]" value="<?php echo $tplHelper->generateXsrfCookie('editsettingsform'); ?>">
 	<input type="hidden" name="editsettingsform[http_referer]" value="<?php echo $http_referer; ?>">
 	
-	<div id="editsettingstab" class="ui-tabs">
-		<ul>
-<?php if ($tplHelper->allowed(SpotSecurity::spotsec_view_spotweb_updates, '')) { ?>
-			<li><a href="?page=versioncheck" title="<?php echo _('Spotweb updates'); ?>"><span><?php echo _('Spotweb updates');?></span></a></li>
-<?php }
-if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>
-			<li><a href="#editsettingstab-1"><span><?php echo _('General'); ?></span></a></li>
-			<li><a href="#editsettingstab-2"><span><?php echo _('Newsservers'); ?></span></a></li>
-			<li><a href="#editsettingstab-3"><span><?php echo _('Retrieve'); ?></span></a></li>
-			<li><a href="#editsettingstab-4"><span><?php echo _('Performance'); ?></span></a></li>
-			<li><a href="#editsettingstab-5"><span><?php echo _("Custom CSS"); ?></span></a></li>
-<?php } ?>
-		</ul>
-			
-<?php if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>		
-		<div id="editsettingstab-1" class="ui-tabs-hide">
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+<?php
+if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { 
+?>
+	<li class=""><a href="#editsettingstab-1" data-toggle="tab"><?php echo _('General'); ?></a></li>
+	<li class=""><a href="#editsettingstab-2" data-toggle="tab"><?php echo _('Newsservers'); ?></a></li>
+	<li class=""><a href="#editsettingstab-3" data-toggle="tab"><?php echo _('Retrieve'); ?></a></li>
+	<li class=""><a href="#editsettingstab-4" data-toggle="tab"><?php echo _('Performance'); ?></a></li>
+	<li class=""><a href="#editsettingstab-5" data-toggle="tab"><?php echo _("Custom CSS"); ?></a></li>
+<?php
+}
+?>
+</ul>
+
+<div id="myTabContent" class="tab-content">		
+<?php if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>
+        
+        <div id="editsettingstab-1" class="tab-pane fade active in">
 			<fieldset>
 				<dl>
+                    <div class="well">
 					<dt><label for="editsettingsform[deny_robots]"><?php echo _('Try to prevent robots from indexing this installation'); ?></label></dt>
 					<dd><input type="checkbox" name="editsettingsform[deny_robots]" <?php if ($this->_settings->get('deny_robots')) { echo 'checked="checked"'; } ?>></dd>
-
+                    </div>
+                    <div class="well">
 					<dt><label for="editsettingsform[systemfrommail]"><?php echo _('Sender email address'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[systemfrommail]" value="<?php echo htmlspecialchars($this->_settings->get('systemfrommail'), ENT_QUOTES); ?>"></dd>
-
+                    </div>
+                    <div class="well">
 					<dt><label for="editsettingsform[sendwelcomemail]"><?php echo _('Always send welcome e-mail to new users'); ?></label></dt>
 					<dd><input type="checkbox" name="editsettingsform[sendwelcomemail]" <?php if ($this->_settings->get('sendwelcomemail')) { echo 'checked="checked"'; } ?>></dd>
-
+                    </div>
+                    <div class="well">
 					<dt><label for="editsettingsform[cookie_expires]"><?php echo _('Cookie expires after (in days)'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[cookie_expires]" value="<?php echo htmlspecialchars($this->_settings->get('cookie_expires'), ENT_QUOTES); ?>"></dd>
-
+                    </div>
+                    <div class="well">
                     <!-- Add some explanation about the MS translator API -->
                     <p>
                         <?php echo _('Spotweb can use the Microsoft Translator API to translate comments and Spot description to the users native language. This requires a so-called Client ID and a SecretID which you need to <a href="http://blogs.msdn.com/b/translation/p/gettingstarted1.aspx">request at Microsoft</a>. Please enter the values in below fields.'); ?>
                     </p>
                     <dt><label for="editsettingsform[ms_translator_clientid]"><?php echo _('Microsoft Translator API - Client ID'); ?></label></dt>
                     <dd><input type="text" name="editsettingsform[ms_translator_clientid]" value="<?php echo htmlspecialchars($this->_settings->get('ms_translator_clientid'), ENT_QUOTES); ?>"></dd>
-
+                    </div>
+                    <div class="well">
                     <dt><label for="editsettingsform[ms_translator_clientsecret]"><?php echo _('Microsoft Translator API - Secret ID'); ?></label></dt>
                     <dd><input type="text" name="editsettingsform[ms_translator_clientsecret]" value="<?php echo htmlspecialchars($this->_settings->get('ms_translator_clientsecret'), ENT_QUOTES); ?>"></dd>
-				</dl>
+				    </div>
+                </dl>
 
 			</fieldset>
 		</div>
 
-		<div id="editsettingstab-2" class="ui-tabs-hide newsservers">
+		<div id="editsettingstab-2" class="tab-pane fade">
 			<fieldset>
 				<dt><label for="use_nntp_hdr"><?php echo _('Default newsserver'); ?></label></dt>
 			</fieldset>
@@ -180,7 +192,7 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>
 			</fieldset>
 			</div>
 
-		<div id="editsettingstab-3" class="ui-tabs-hide">
+		<div id="editsettingstab-3" class="tab-pane fade">
 			<fieldset>
 				<dl>
 					<dt><label for="editsettingsform[retention]"><?php echo _('Retention on spots (in days). Older spots will be erased. Select 0 to keep all spots.'); ?></label></dt>
@@ -193,7 +205,14 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>
 						</select>					
 
 					<dt><label for="editsettingsform[retrieve_newer_than]"><?php echo _('Retrieve spots after... Select November 1, 2009 to fetch all spots'); ?><br /><?php echo _('To skip all FTD spots select November 24, 2010'); ?></label></dt>
-					<dd><div id="datepicker"></div><input type="hidden" id="retrieve_newer_than" name="editsettingsform[retrieve_newer_than]"></dd>
+					<dd>
+                    <div class="input-append date datepicker" id="dp3">
+                        <div class="input-group">
+                            <input class="form-control" type="text" value="12-02-2012" data-provide="datepicker" id="retrieve_newer_than" name="editsettingsform[retrieve_newer_than]">
+                        </div>
+                    </div>
+                    
+                    </dd>
 
 					<dt><label for="editsettingsform[retrieve_full]"><?php echo _('Retrieve full spots'); ?></label></dt>
 					<dd><input type="checkbox" class="enabler" name="editsettingsform[retrieve_full]" id="use_retrieve_full" <?php if ($this->_settings->get('retrieve_full')) { echo 'checked="checked"'; } ?>></dd>
@@ -221,7 +240,7 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>
 			</fieldset>
 		</div>
 
-		<div id="editsettingstab-4" class="ui-tabs-hide">
+		<div id="editsettingstab-4" class="tab-pane fade">
 			<fieldset>
 				<dl>
 					<dt><label for="editsettingsform[enable_timing]"><?php echo _('Enable timing'); ?><br /><?php echo _('Use this only to identify speed problems within Spotweb.'); ?> <?php echo _('Not suitable for public installations'); ?></label></dt>
@@ -253,7 +272,7 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>
 		</div>
 
 <!-- Custom Stylesheet -->
-		<div id="editsettingstab-5" class="ui-tabs-hide">
+		<div id="editsettingstab-5" class="tab-pane fade">
 			<fieldset>
 				<dt>
 					<label for="editsettingsform[customcss]"><?php echo _('Use custom CSS?'); ?></label>
@@ -265,15 +284,20 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) { ?>
 		</div>
 <!-- Einde Custom Stylesheet -->
 
+</div>
+
 <?php } ?>
 
 		<div class="editSettingsButtons">
-			<input class="greyButton" type="submit" name="editsettingsform[submitedit]" value="<?php echo _('Change'); ?>">
-			<input class="greyButton" type="submit" name="editsettingsform[submitcancel]" value="<?php echo _('Cancel'); ?>">
+			<input class="btn btn-primary" type="submit" name="editsettingsform[submitedit]" value="<?php echo _('Change'); ?>">
+			<input class="btn btn-default" type="submit" name="editsettingsform[submitcancel]" value="<?php echo _('Cancel'); ?>">
 			<div class="clear"></div>
 		</div>
 	</div>
 </form>
+</div>
+</div>
+
 <?php
     $toRunJsCode = 'initializeSettingsPage();';
 	require_once "includes/footer.inc.php";
