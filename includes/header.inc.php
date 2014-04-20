@@ -6,7 +6,7 @@
 	<!-- FontAwesome -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<!-- Bootswatch Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://bootswatch.com/spacelab/bootstrap.css">
+	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.css">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="http://bootswatch.com/assets/css/bootswatch.min.css">
 	<!-- Latest compiled and minified JavaScript -->

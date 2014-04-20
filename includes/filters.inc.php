@@ -15,7 +15,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.php">Spotweb</a>
+			<a class="navbar-brand" href="index.php"><img src="templates/bootspot/images/spotweb-logo.png" width="120" border="0" /></a>
 		</div>
 		<div class="navbar-collapse collapse" id="navbar-spotweb">
 			
