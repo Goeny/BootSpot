@@ -10,7 +10,10 @@ The many options and possibilities available in spotweb should still be availabl
 Completion however will take a long long time since the development of this theme has to go hand in hand with the spotweb project itself.
 
 Current Main page
-![ScreenShot](http://gebruiknet.hopseflop.nl/image_library/spotweb-bootstrap-06042014-2.png)
+![ScreenShot](http://gebruiknet.hopseflop.nl/image_library/bootspot-main.png)
+
+Current Main page + Navigation fold out
+![ScreenShot](http://gebruiknet.hopseflop.nl/image_library/bootspot-main-nav.png)
 
 Current Settings page
 ![ScreenShot](http://gebruiknet.hopseflop.nl/image_library/bootspot-settings1.png)
