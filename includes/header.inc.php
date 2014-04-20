@@ -6,11 +6,13 @@
 	<!-- FontAwesome -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<!-- Bootswatch Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.css">
+	<link rel="stylesheet" href="http://bootswatch.com/spacelab/bootstrap.css">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="http://bootswatch.com/assets/css/bootswatch.min.css">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<!-- Custom theme related css -->
+	<link rel="stylesheet" href="templates/bootspot/css/custom-bootstrap.css">
 	
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
 		<title>SpotWeb - <?php echo $pagetitle?></title>

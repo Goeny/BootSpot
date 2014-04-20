@@ -32,9 +32,12 @@
 		} # if
 	} # if
 ?>
-	<div class="col-lg-8">
-			<div class="spots">
-	</div>
+	<div class="col-xs-12 col-sm-6 col-lg-9">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php echo _('Spots'); ?></h3>
+			</div>
+			<div class="panel-body">
 				<table class="table table-striped table-hover table-condensed" summary="Spots">
 					<thead>
 						<tr class="head">
@@ -47,13 +50,13 @@
 							<th class='watch'> </th>
 							<?php }
 							if ($show_comments) {
-								echo "<th class='comments'> <a title='" . _('Number of comments') . "' href='" . $tplHelper->makeToggleSortUrl('index', 'commentcount', 'DESC') . "'><i class='fa fa-comments'></i> </a> </th>";
+								echo "<th class='comments'> <a title='" . _('Number of comments') . "' href='" . $tplHelper->makeToggleSortUrl('index', 'commentcount', 'DESC') . "'><i class='fa fa-comments fa-2x'></i> </a> </th>";
 							} # if ?>
 							<th class='genre'> <?php echo _('Genre'); ?> </th> 
-							<th class='poster'> <span class="sortby"><a class="up" href="<?php echo $tplHelper->makeSortUrl('index', 'poster', 'ASC'); ?>" title="<?php echo _('Sort on sender [0-Z]'); ?>"> </a> <a class="down" href="<?php echo $tplHelper->makeSortUrl('index', 'poster', 'DESC'); ?>" title="<?php echo _('Sort on sender [Z-0]'); ?>"> </a></span> <?php echo _('Sender'); ?> </th> 
-							<th class='date'> <span class="sortby"><a class="up" href="<?php echo $tplHelper->makeSortUrl('index', 'stamp', 'DESC'); ?>" title="<?php echo _('Sort on age [ascending]'); ?>"> </a> <a class="down" href="<?php echo $tplHelper->makeSortUrl('index', 'stamp', 'ASC'); ?>" title="<?php echo _('Sort on age [descending]'); ?>"> </a></span> <?php echo ($currentSession['user']['prefs']['date_formatting'] == 'human') ? _('Age') : _('Date'); ?> </th> 
+							<th class='poster'> <span class="sortby">	<a class="up" href="<?php echo $tplHelper->makeToggleSortUrl('index', 'poster', 'DESC'); ?>" title="<?php echo _('Sort on sender [0-Z]'); ?>"><i class="fa fa-unsorted"></i> <?php echo _('Sender'); ?></a></th> 
+							<th class='date'> <span class="sortby">		<a class="up" href="<?php echo $tplHelper->makeToggleSortUrl('index', 'stamp', 'DESC'); ?>" title="<?php echo _('Sort on age [ascending]'); ?>"><i class="fa fa-unsorted"></i> <?php echo ($currentSession['user']['prefs']['date_formatting'] == 'human') ? _('Age') : _('Date'); ?></a></th> 
 <?php if ($show_filesize) { ?>
-							<th class='filesize'> <span class="sortby"><a class="up" href="<?php echo $tplHelper->makeSortUrl('index', 'filesize', 'DESC'); ?>" title="<?php echo _('Sort on size [descending]'); ?>"> </a> <a class="down" href="<?php echo $tplHelper->makeSortUrl('index', 'filesize', 'ASC'); ?>" title="<?php echo _('Sort on size [ascending]'); ?>"> </a></span> <?php echo _('Size'); ?> </th> 
+							<th class='filesize'> <span class="sortby"><a class="up" href="<?php echo $tplHelper->makeToggleSortUrl('index', 'filesize', 'DESC'); ?>" title="<?php echo _('Sort on size [descending]'); ?>"><i class="fa fa-unsorted"></i> <?php echo _('Size'); ?></a></th> 
 <?php } ?>
 <?php if ($show_nzb_button) { ?>
 							<th class='nzb'> <?php echo _('NZB'); ?> </th>
@@ -67,7 +70,7 @@
 <?php } ?>		
 <?php $nzbHandlingTmp = $currentSession['user']['prefs']['nzbhandling'];
 if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlingTmp['action'])) && ($nzbHandlingTmp['action'] != 'disable')) { ?>
-							<th class='sabnzbd'><a class="toggle" onclick="toggleSidebarPanel('.sabnzbdPanel')" title='<?php echo sprintf(_('Open "%s" panel'), $tplHelper->getNzbHandlerName()); ?>'><i class="fa fa-download"></i></a></th>
+							<th class='sabnzbd'><a data-target="#mySAB" data-toggle="modal"><img src="templates/bootspot/images/sablogo.png" width="28" border="0" /></th>
 <?php } ?>						
 						</tr>
 					</thead>
@@ -160,8 +163,8 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			echo " moderatedspot";
 		} # if
 		echo "'>";
-		echo "<td class='category'><a href='" . $spot['caturl'] . "' title=\"" . sprintf(_("Go to category '%s'"), $spot['catshortdesc']) . "\">" . $spot['catshortdesc'] . "</a></td>" .
-			 "<td class='title " . $newSpotClass . " ". $tipTipClass . "'><a data-cats='" . $catData. "' onclick='openSpot(this,\"".$spot['spoturl']."\")' href='".$spot['spoturl']."' title='" . $spot['title'] . "' class='spotlink'>" . $reportSpam . $rating . $markSpot . $spot['title'] . "</a></td>";
+		echo "<td class='category'><a href='" . $spot['caturl'] . "' title=\"" . sprintf(_("Go to category '%s'"), $spot['catshortdesc']) . "\"><span class='label label-cat label-".$tplHelper->filter2cat($tplHelper->cat2CssClass($spot))."'>" . $spot['catshortdesc'] . "</span></a></td>" .
+			 "<td class='title " . $newSpotClass . " ". $tipTipClass . "'><a href='".$spot['spoturl']."' title='" . $spot['title'] . "' class='spotlink'>" . $reportSpam . $rating . $markSpot . $spot['title'] . "</a></td>";
 
 		if ($show_editspot_button) {
 			echo "<td class='editspot'>";
@@ -171,13 +174,13 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 
 		if ($show_watchlist_button) {
 			echo "<td class='watch'>";
-			echo "<a class='remove watchremove_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','remove',".$spot['id'].")\""; if(!$spot['isbeingwatched']) { echo " style='display: none;'"; } echo " title='" . _('Delete from watchlist (w)') . "'> </a>";
-			echo "<a class='add watchadd_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','add',".$spot['id'].")\""; if($spot['isbeingwatched']) { echo " style='display: none;'"; } echo " title='" . _('Position in watchlist (w)') . "'> </a>";
+			echo "<a class='remove watchremove_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','remove',".$spot['id'].")\""; if(!$spot['isbeingwatched']) { echo " style='display: none;'"; } echo " title='" . _('Delete from watchlist (w)') . "'><i class='fa fa-bookmark fa-2x'></i> </a>";
+			echo "<a class='add watchadd_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','add',".$spot['id'].")\""; if($spot['isbeingwatched']) { echo " style='display: none;'"; } echo " title='" . _('Position in watchlist (w)') . "'><i class='fa fa-bookmark-o fa-2x'></i> </a>";
 			echo "</td>";
 		}
 
 		if ($show_comments) {
-			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "#comments' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\">" . $commentCountValue . "</a></td>";
+			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "#comments' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\"><span class='badge'>" . $commentCountValue . "</span></a></td>";
 		} # if
 		
 		$markSpot = '';
@@ -242,6 +245,8 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 ?>
 					</tbody>
 				</table>
+			</div>
+		</div>
 <?php if ($prevPage >= 0 || $nextPage > 0) { ?>
 				<table class="footer" summary="Footer">
 					<tbody>

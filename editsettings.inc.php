@@ -97,113 +97,147 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
 		</div>
 
 		<div id="editsettingstab-2" class="tab-pane fade">
+			<div class="well">
 			<fieldset>
 				<dt><label for="use_nntp_hdr"><?php echo _('Default newsserver'); ?></label></dt>
 			</fieldset>
 			<fieldset class="serverSettings">
 				<dl>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_nzb][host]"><?php echo _('Hostname'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_nzb][host]" value="<?php echo htmlspecialchars($nntp_nzb['host'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_nzb][user]"><?php echo _('Username'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_nzb][user]" value="<?php echo htmlspecialchars($nntp_nzb['user'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_nzb][pass]"><?php echo _('Password'); ?></label></dt>
 					<dd><input type="password" name="editsettingsform[nntp_nzb][pass]" value="<?php echo htmlspecialchars($nntp_nzb['pass'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="use_encryption_nzb"><?php echo _('Encryption'); ?></label></dt>
 					<dd><input type="checkbox" class="enabler" name="editsettingsform[nntp_nzb][enc][switch]" id="use_encryption_nzb" <?php if ($nntp_nzb['enc']) { echo 'checked="checked"'; } ?>></dd>
+					</div>
 					<fieldset id="content_use_encryption_nzb">
+						<div class="well">
 						<select name="editsettingsform[nntp_nzb][enc][select]">
 							<option <?php if ($nntp_nzb['enc'] == 'ssl') { echo 'selected="selected"'; } ?> value="ssl">SSL</option>
 							<option <?php if ($nntp_nzb['enc'] == 'tls') { echo 'selected="selected"'; } ?> value="tls">TLS</option>
-						</select>					
+						</select>
+						</div>
 					</fieldset>
-
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_nzb][port]"><?php echo _('Port'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_nzb][port]" value="<?php echo htmlspecialchars($nntp_nzb['port'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_nzb][buggy]"><?php echo _('Buggy (Some newsservers lose messages once in a while)'); ?></label></dt>
 					<dd><input type="checkbox" name="editsettingsform[nntp_nzb][buggy]" <?php if ($nntp_nzb['buggy']) { echo 'checked="checked"'; } ?>></dd>
+					</div>
 				</dl>
 			</fieldset>
-
+			</div>
+			
+			<div class="well">
 			<fieldset>
 				<dt><label for="use_nntp_hdr"><?php echo _('Use different server for headers?'); ?></label></dt>
 				<dd><input type="checkbox" class="enabler" name="editsettingsform[nntp_hdr][use]" id="use_nntp_hdr" <?php if (!isset($nntp_hdr['isadummy'])) { echo 'checked="checked"'; } ?>></dd>
 			</fieldset>
 			<fieldset id="content_use_nntp_hdr" class="serverSettings">
 				<dl>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_hdr][host]"><?php echo _('Hostname'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_hdr][host]" value="<?php echo htmlspecialchars($nntp_hdr['host'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_hdr][user]"><?php echo _('Username'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_hdr][user]" value="<?php echo htmlspecialchars($nntp_hdr['user'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_hdr][pass]"><?php echo _('Password'); ?></label></dt>
 					<dd><input type="password" name="editsettingsform[nntp_hdr][pass]" value="<?php echo htmlspecialchars($nntp_hdr['pass'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="use_encryption_hdr"><?php echo _('Encryption'); ?></label></dt>
 					<dd><input type="checkbox" class="enabler" name="editsettingsform[nntp_hdr][enc][switch]" id="use_encryption_hdr" <?php if ($nntp_hdr['enc']) { echo 'checked="checked"'; } ?>></dd>
+					</div>
 					<fieldset id="content_use_encryption_hdr">
+						<div class="well">
 						<select name="editsettingsform[nntp_hdr][enc][select]">
 							<option <?php if ($nntp_hdr['enc'] == 'ssl') { echo 'selected="selected"'; } ?> value="ssl">SSL</option>
 							<option <?php if ($nntp_hdr['enc'] == 'tls') { echo 'selected="selected"'; } ?> value="tls">TLS</option>
-						</select>					
+						</select>
+						</div>
 					</fieldset>
-
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_hdr][port]"><?php echo _('Port'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_hdr][port]" value="<?php echo htmlspecialchars($nntp_hdr['port'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_hdr][buggy]"><?php echo _('Buggy (Some newsservers lose messages once in a while)'); ?></label></dt>
 					<dd><input type="checkbox" name="editsettingsform[nntp_hdr][buggy]" <?php if ($nntp_hdr['buggy']) { echo 'checked="checked"'; } ?>></dd>
+					</div>
 				</dl>
 			</fieldset>
-
+			</div>
+			
+			<div class="well">
 			<fieldset>
 				<dt><label for="use_nntp_post"><?php echo _('Use different server for posting?'); ?></label></dt>
 				<dd><input type="checkbox" class="enabler" name="editsettingsform[nntp_post][use]" id="use_nntp_post" <?php if (!isset($nntp_post['isadummy'])) { echo 'checked="checked"'; } ?>></dd>
 			</fieldset>
 			<fieldset id="content_use_nntp_post" class="serverSettings">
 				<dl>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_post][host]"><?php echo _('Hostname'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_post][host]" value="<?php echo htmlspecialchars($nntp_post['host'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_post][user]"><?php echo _('Username'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_post][user]" value="<?php echo htmlspecialchars($nntp_post['user'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_post][pass]"><?php echo _('Password'); ?></label></dt>
 					<dd><input type="password" name="editsettingsform[nntp_post][pass]" value="<?php echo htmlspecialchars($nntp_post['pass'], ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="use_encryption_post"><?php echo _('Encryption'); ?></label></dt>
 					<dd><input type="checkbox" class="enabler" name="editsettingsform[nntp_post][enc][switch]" id="use_encryption_post" <?php if ($nntp_post['enc']) { echo 'checked="checked"'; } ?>></dd>
+					</div>
 					<fieldset id="content_use_encryption_post">
+						<div class="well">
 						<select name="editsettingsform[nntp_post][enc][select]">
 							<option <?php if ($nntp_post['enc'] == 'ssl') { echo 'selected="selected"'; } ?> value="ssl">SSL</option>
 							<option <?php if ($nntp_post['enc'] == 'tls') { echo 'selected="selected"'; } ?> value="tls">TLS</option>
-						</select>					
+						</select>
+						</div>
 					</fieldset>
-
+					<div class="well">
 					<dt><label for="editsettingsform[nntp_post][port]"><?php echo _('Port'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[nntp_post][port]" value="<?php echo htmlspecialchars($nntp_post['port'], ENT_QUOTES); ?>"></dd>
-
+					</div>
 					<input type="hidden" name="editsettingsform[nntp_post][buggy]" value="">
 				</dl>
 			</fieldset>
+			</div>
 			</div>
 
 		<div id="editsettingstab-3" class="tab-pane fade">
 			<fieldset>
 				<dl>
+					<div class="well">
 					<dt><label for="editsettingsform[retention]"><?php echo _('Retention on spots (in days). Older spots will be erased. Select 0 to keep all spots.'); ?></label></dt>
 					<dd><input type="text" name="editsettingsform[retention]" value="<?php echo htmlspecialchars($this->_settings->get('retention'), ENT_QUOTES); ?>"></dd>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[retentiontype]"><?php echo _('Retention is for either everything or only the cached data'); ?></label></dt>
 						<select name="editsettingsform[retentiontype]">
 							<option <?php if ($this->_settings->get('retentiontype') == 'everything') { echo 'selected="selected"'; } ?> value="everything"><?php echo _('Remove everything'); ?></option>
 							<option <?php if ($this->_settings->get('retentiontype') == 'fullonly') { echo 'selected="selected"'; } ?> value="fullonly"><?php echo _('Only extra data but keep spots'); ?></option>
 						</select>					
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[retrieve_newer_than]"><?php echo _('Retrieve spots after... Select November 1, 2009 to fetch all spots'); ?><br /><?php echo _('To skip all FTD spots select November 24, 2010'); ?></label></dt>
 					<dd>
                     <div class="input-append date datepicker" id="dp3">
@@ -213,29 +247,41 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
                     </div>
                     
                     </dd>
-
+					</div>
+					
+					<div class="well">
 					<dt><label for="editsettingsform[retrieve_full]"><?php echo _('Retrieve full spots'); ?></label></dt>
 					<dd><input type="checkbox" class="enabler" name="editsettingsform[retrieve_full]" id="use_retrieve_full" <?php if ($this->_settings->get('retrieve_full')) { echo 'checked="checked"'; } ?>></dd>
+					
 					<fieldset id="content_use_retrieve_full">
+						<div class="well">
 						<dt><label for="editsettingsform[prefetch_image]"><?php echo _('Prefetch images'); ?></label></dt>
 						<dd><input type="checkbox" name="editsettingsform[prefetch_image]" <?php if ($this->_settings->get('prefetch_image')) { echo 'checked="checked"'; } ?>></dd>
-
+						</div>
+						<div class="well">
 						<dt><label for="editsettingsform[prefetch_nzb]"><?php echo _('Prefetch NZB files'); ?></label></dt>
 						<dd><input type="checkbox" name="editsettingsform[prefetch_nzb]" <?php if ($this->_settings->get('prefetch_nzb')) { echo 'checked="checked"'; } ?>></dd>
+						</div>
 					</fieldset>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[retrieve_comments]"><?php echo _('Retrieve comments'); ?></label></dt>
 					<dd><input type="checkbox" class="enabler" name="editsettingsform[retrieve_comments]" id="use_retrieve_comments" <?php if ($this->_settings->get('retrieve_comments')) { echo 'checked="checked"'; } ?>></dd>
+					</div>
+					<div class="well">
 					<fieldset id="content_use_retrieve_comments">
 						<dt><label for="editsettingsform[retrieve_full_comments]"><?php echo _('Retrieve full comments'); ?></label></dt>
 						<dd><input type="checkbox" name="editsettingsform[retrieve_full_comments]" <?php if ($this->_settings->get('retrieve_full_comments')) { echo 'checked="checked"'; } ?>></dd>
 					</fieldset>
-
+					</div>
+					<div class="well">
 					<dt><label for="editsettingsform[retrieve_reports]"><?php echo _('Retrieve reports'); ?></label></dt>
 					<dd><input type="checkbox" name="editsettingsform[retrieve_reports]" <?php if ($this->_settings->get('retrieve_reports')) { echo 'checked="checked"'; } ?>></dd>
-
+					</div>
+					<div class="well">
                     <dt><label for="editsettingsform[create_collections]"><?php echo _('Create collections of multiple spots?'); ?></label></dt>
                     <dd><input type="checkbox" name="editsettingsform[create_collections]" <?php if ($this->_settings->get('create_collections')) { echo 'checked="checked"'; } ?>></dd>
+					</div>
 				</dl>
 			</fieldset>
 		</div>
