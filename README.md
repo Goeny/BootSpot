@@ -17,3 +17,10 @@ Current Main page + Navigation fold out
 
 Current Settings page
 ![ScreenShot](http://gebruiknet.hopseflop.nl/image_library/bootspot-settings1.png)
+
+## Used resources
+* Spotweb (media_info branch)
+* Bootstrap 3
+* Bootswatch Themes
+* FontAwesome icon's
+* Bootstrap Datepicker by Eternicode
