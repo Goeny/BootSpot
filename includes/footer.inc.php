@@ -21,7 +21,8 @@
             ?>
         </script>
     <?php } ?>
-
+	<!-- SABnzbd panel -->
+	<script src="templates/bootspot/js/sabpanel.js"></script>
 	
 <!-- BEGIN SABNZBD PANEL -->
 <div class="modal fade sabnzbdPanel" id="mySAB" tabindex="-1" role="dialog" aria-hidden="true">
@@ -34,70 +35,71 @@
             SABnzbd Panel
         </h4>
       </div>
-      <div class="modal-body sabnzbdPanel">
-<div id="sabnzbdPanel">
-<?php 
-if ($tplHelper->allowed(SpotSecurity::spotsec_use_sabapi, '')) { 
-	$apikey = $tplHelper->apiToHash($currentSession['user']['apikey']);
-	echo "<input class='apikey' type='hidden' value='".$apikey."'>";
-	if ($tplHelper->getNzbHandlerApiSupport() === false){
-?>
-		<table class="sabInfo table" summary="SABnzbd infomatie">
-			<tr>
-				<td><?php echo _('Selected NZB download methode doesn\'t support sidepanel'); ?></td>
-			</tr>
-		</table>			
-<?php	
-	}
-	else{
-?>		<table class="sabInfo table" summary="SABnzbd infomatie">
-			<tr>
-				<td><?php echo _('Status:'); ?></td><td class="state"></td>
-			</tr>
-			<tr>
-				<td><?php echo _('Free storage:'); ?></td><td class="diskspace"></td>
-			</tr>
-			<tr>
-				<td><?php echo _('Speed:'); ?></td><td class="speed"></td>
-			</tr>
-			<tr>
-				<td><?php echo _('Max. speed:'); ?></td><td class="speedlimit"></td>
-			</tr>
-			<tr>
-				<td><?php echo _('To go:'); ?></td><td class="timeleft"></td>
-			</tr>
-			<tr>
-				<td><?php echo _('ETA:'); ?></td><td class="eta"></td>
-			</tr>
-			<tr>
-				<td><?php echo _('Queue:'); ?></td><td class="mb"></td>
-			</tr>
-		</table>
-		<canvas id="graph table" width="215" height="125"></canvas>
-		<table class="sabGraphData" summary="SABnzbd Graph Data" style="display:none;">
-			<tbody>
+		<div class="modal-body sabnzbdPanel">
+
+		<?php 
+		if ($tplHelper->allowed(SpotSecurity::spotsec_use_sabapi, '')) { 
+			$apikey = $tplHelper->apiToHash($currentSession['user']['apikey']);
+			echo "<input class='apikey' type='hidden' value='".$apikey."'>";
+			if ($tplHelper->getNzbHandlerApiSupport() === false){
+		?>
+			<table class="sabInfo table" summary="SABnzbd infomatie">
 				<tr>
-					<td></td>
+					<td><?php echo _('Selected NZB download methode doesn\'t support sidepanel'); ?></td>
 				</tr>
-			</tbody>
-		</table>
-		<h4><?php echo _('Queue'); ?></h4>
-		<table class="sabQueue table" summary="SABnzbd queue">
-			<tbody>
+			</table>			
+		<?php	
+			}
+			else{
+		?>		
+			<table class="sabInfo table" summary="SABnzbd infomatie">
 				<tr>
-					<td></td>
+					<td><?php echo _('Status:'); ?></td><td class="state"></td>
 				</tr>
-			</tbody>
-		</table>
+				<tr>
+					<td><?php echo _('Free storage:'); ?></td><td class="diskspace"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Speed:'); ?></td><td class="speed"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Max. speed:'); ?></td><td class="speedlimit"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('To go:'); ?></td><td class="timeleft"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('ETA:'); ?></td><td class="eta"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Queue:'); ?></td><td class="mb"></td>
+				</tr>
+			</table>
+		
+			<canvas id="graph table" width="215" height="125"></canvas>
+			<table class="sabGraphData" summary="SABnzbd Graph Data" style="display:none;">
+				<tbody>
+					<tr>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<h4><?php echo _('Queue'); ?></h4>
+			<table class="sabQueue table" summary="SABnzbd queue">
+				<tbody>
+					<tr>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
 		<?php 	
-		}
-	} 
-?>
-</div>
-</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+			}
+		} 
+		?>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
     </div>
   </div>
 </div>	

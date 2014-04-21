@@ -125,7 +125,8 @@ class SpotTemplateHelper_Bootspot extends SpotTemplateHelper {
 								'templates/bootspot/js/bootspotpost.js',
 								'templates/bootspot/js/treehelper.js',
 								'templates/bootspot/js/jquery.ui.nestedSortable.js',
-								'templates/bootspot/js/jquery.tipTip.minified.js'
+								'templates/bootspot/js/jquery.tipTip.minified.js',
+								'templates/bootspot/js/bootstrap-datepicker.js'
 								);
 				break;
 			} # case js

@@ -1,6 +1,6 @@
 // SabNZBd actions
 function sabBaseURL() {
-    var apikey = $("#mySAB input.apikey").val();
+    var apikey = $(".sabnzbdPanel input.apikey").val();
     return createBaseURL()+'?page=nzbhandlerapi&nzbhandlerapikey='+apikey;
 }
 

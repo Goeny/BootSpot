@@ -13,7 +13,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<!-- Custom theme related css -->
 	<link rel="stylesheet" href="templates/bootspot/css/custom-bootstrap.css">
-	
+		
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
 		<title>SpotWeb - <?php echo $pagetitle?></title>
 		<meta name="generator" content="SpotWeb v<?php echo SPOTWEB_VERSION; ?>">
@@ -39,7 +39,6 @@
             </script>
      
    
-   <script src="templates/bootspot/js/bootstrap-datepicker.js"></script>
 	</head>
 	<body>
 		<div class="container" id="container">

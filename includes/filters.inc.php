@@ -264,7 +264,7 @@
 </nav>
 
 		<div class="col-xs-6 col-lg-3">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary sidebar-nav-fixed">
 				<div class="panel-heading">
 					<h3 class="panel-title"><?php echo _('Filters'); ?></h3>
 				</div>
