@@ -353,7 +353,9 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
 </form>
 </div>
 </div>
-
+<script>
+$("[class='enabler']").bootstrapSwitch();
+</script>
 <?php
     $toRunJsCode = 'initializeSettingsPage();';
 	require_once "includes/footer.inc.php";

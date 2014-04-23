@@ -1,3 +1,4 @@
+/* Category Label */
 .label-cat{
   display: block;
   padding: .2em .6em .3em;
@@ -10,4 +11,9 @@
   vertical-align: baseline;
   border-radius: .25em;
   width: 50px;
+}
+
+/* New Spots */
+.new{
+	font-weight: bold;
 }

@@ -164,7 +164,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		} # if
 		echo "'>";
 		echo "<td class='category'><a href='" . $spot['caturl'] . "' title=\"" . sprintf(_("Go to category '%s'"), $spot['catshortdesc']) . "\"><span class='label label-cat label-".$tplHelper->filter2cat($tplHelper->cat2CssClass($spot))."'>" . $spot['catshortdesc'] . "</span></a></td>" .
-			 "<td class='title " . $newSpotClass . " ". $tipTipClass . "'><a href='".$spot['spoturl']."' title='" . $spot['title'] . "' class='spotlink'>" . $reportSpam . $rating . $markSpot . $spot['title'] . "</a></td>";
+			 "<td class='title " . $newSpotClass . "'><a href='" . $spot['spoturl'] . "' title='" . $spot['title'] . "'>" . $reportSpam . $rating . $markSpot . $spot['title'] . "</a></td>";
 
 		if ($show_editspot_button) {
 			echo "<td class='editspot'>";

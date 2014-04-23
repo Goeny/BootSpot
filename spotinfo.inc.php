@@ -51,21 +51,97 @@
 				<input type="hidden" name="blacklistspotterform[idtype]" value="1">
 			</form>
 
-			<table class="spotheader">
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav">
+		<li><a onClick="history.go(-1);" title="<?php echo _('Back to mainview (ESC / U)'); ?>"><i class="fa fa-backward"></i></a></li>
+		<li><a href="#"><?php echo $spot['formatname']; ?></a></li>
+		<li>
+		<?php
+		if($spot['rating'] == 0) {
+		?>
+		<a href="#"><?php echo _('This spot has no rating yet'); ?></a>
+		<?php
+		} 
+		elseif($spot['rating'] > 0) {
+		?>
+		<a href="#"><?php echo sprintf(ngettext('This spot thas %d star', 'This spot has %d stars', $spot['rating']), $spot['rating']); ?></a>
+		<?php
+		}
+		?>
+		</li>
+		<?php
+		if ($tplHelper->allowed(SpotSecurity::spotsec_report_spam, '')) {
+			if ($currentSession['user']['userid'] > 2) {
+		?>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			<?php
+				if (!$tplHelper->isReportPlaced($spot['messageid'])) {
+			?>	
+				<li><a onclick="openDialog('editdialogdiv', '<?php echo _('Report spam'); ?>', '?page=render&tplname=reportspot&data[messageid]=<?php echo urlencode($spot['messageid']); ?>', postReportForm, 'autoclose', null, null);" class="spamreport-button" title="<?php echo _('Report this spot as spam'); ?>"><?php echo _('Report this spot as spam'); ?></a></li>
+			<?php
+				}
+				else{
+			?>
+				<li><a onclick="return false;" class="spamreport-button success" title="<?php echo _('You already reported this spot as spam'); ?>"><?php echo _('You already reported this spot as spam'); ?></a></li>
+			<?php
+				}
+			?>
+			</ul>
+		</li>
+			<?php
+			}
+		}
+		?>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<?php 
+		if ($show_watchlist_button) {
+		?>
+		<li><a class="remove watchremove_<?php echo $spot['id']; ?>" onclick="toggleWatchSpot('<?php echo $spot['messageid']; ?>','remove', <?php echo $spot['id']; ?>)" <?php if($spot['isbeingwatched'] == false) { ?> style="display: none" <?php } ?> title="<?php echo _('Delete from watchlist (w)'); ?>"><i class="fa fa-bookmark"></i></a></li>
+		<li><a class="remove watchremove_<?php echo $spot['id']; ?>" onclick="toggleWatchSpot('<?php echo $spot['messageid']; ?>','add', <?php echo $spot['id']; ?>)" <?php if($spot['isbeingwatched'] == true) { ?> style="display: none" <?php } ?> title="<?php echo _('Position in watchlist (w)'); ?>"><i class="fa fa-bookmark-o"></i></a></li>
+		<?php
+		}
+		if ($show_nzb_button) { ?>
+		<li><a class="nzb<?php if ($spot['hasbeendownloaded']) { echo " downloaded"; } ?>" href="<?php echo $tplHelper->makeNzbUrl($spot); ?>" title="<?php echo _('Download NZB'); if ($spot['hasbeendownloaded']) {echo _('(this spot has already been downloaded)');} echo " (n)"; ?>"><i class="fa fa-hdd-o"></i> </a></li>
+		<?php 
+		}
+		if ((!empty($spot['nzb'])) && (!empty($spot['sabnzbdurl']))) {
+			if ($spot['hasbeendownloaded']) {
+		?>
+		<li><a onclick="downloadSabnzbd('<?php echo $spot['id']; ?>','<?php echo $spot['sabnzbdurl']; ?>','<?php echo $spot['nzbhandlertype']; ?>')" rel="tooltip" title="<?php echo _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)'); ?>"><i class="sab_<?php echo $spot['id']; ?> fa fa-check"></i> </a></li>
+		<?php
+			}
+		else{
+		?>
+		<li><a onclick="downloadSabnzbd('<?php echo $spot['id']; ?>','<?php echo $spot['sabnzbdurl']; ?>','<?php echo $spot['nzbhandlertype']; ?>')" rel="tooltip" title="<?php echo _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)'); ?>"><i class="sab_<?php echo $spot['id']; ?> fa fa-download"></i> </a></li>
+		<?php
+			}
+		}
+		?>
+	</ul>
+  </div>
+  </div>  
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title"><?php echo $spot['title']; ?></h3>
+	</div>
+	<div class="panel-body">
+			<table class="spotheader table table-condensed">
 				<tbody>
 					<tr>
-						<th class="back"> <a class="closeDetails" title="<?php echo _('Back to mainview (ESC / U)'); ?>">&lt;&lt;</a> </th>
-						<th class="category"><span><?php echo $spot['formatname'];?></span></th>
-						<th class="title"><?php echo $spot['title'];?></th>
-						<th class="rating">
-<?php
-	if($spot['rating'] == 0) {
-		echo '<span class="rating" title="' . _('This spot has no rating yet') . '"><span style="width:0px;"></span></span>';
-	} elseif($spot['rating'] > 0) {
-		echo '<span class="rating" title="' . sprintf(ngettext('This spot thas %d star', 'This spot has %d stars', $spot['rating']), $spot['rating']) . '"><span style="width:' . $spot['rating'] * 4 . 'px;"></span></span>';
-	}
-?>
-						</th>
 <?php if ($tplHelper->allowed(SpotSecurity::spotsec_report_spam, '')) {
 		if ($currentSession['user']['userid'] > 2) {
 			if (!$tplHelper->isReportPlaced($spot['messageid'])) {
@@ -85,12 +161,7 @@ echo "<a class='remove watchremove_".$spot['id']."' onclick=\"toggleWatchSpot('"
 echo "<a class='add watchadd_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','add',".$spot['id'].")\""; if($spot['isbeingwatched'] == true) { echo " style='display: none;'"; } echo " title='" . _('Place in watchlist (w)') . "'> </a>";
 echo "</th>";
 } ?>
-<?php if ((!empty($spot['nzb'])) && (!empty($spot['sabnzbdurl']))) { ?>
-<?php if ($spot['hasbeendownloaded']) { ?>
-						<th class="sabnzbd"><a onclick="downloadSabnzbd(<?php echo "'".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "'"; ?>)" class="<?php echo "sab_".$spot['id'].""; ?> sabnzbd-button succes" title="<?php echo _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)'); ?>"> </a></th>
-<?php } else { ?>
-						<th class="sabnzbd"><a onclick="downloadSabnzbd(<?php echo "'".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "'"; ?>)" class="<?php echo "sab_".$spot['id'].""; ?> sabnzbd-button" title="<?php echo _('Add NZB to SABnzbd queue (s)'); ?>"> </a></th>
-<?php } } ?>
+
 					</tr>
 				</tbody>
 			</table>
@@ -132,7 +203,7 @@ echo "</th>";
 					</div>
 				
 					<div class="col-lg-9">
-						<table class="table">
+						<table class="table table-condensed">
 							<tbody>
 								<tr>
 									<th><?php echo _('Category'); ?></th>
@@ -272,6 +343,8 @@ echo "</th>";
 					</div>				
 				</div>
 			</div>
+		</div>
+	</div>
 								
 			<div class="description">
 				<h4><?php echo _('Post Description'); ?></h4>
