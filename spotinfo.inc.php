@@ -62,7 +62,7 @@
   </div>
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
-		<li><a onClick="history.go(-1);" title="<?php echo _('Back to mainview (ESC / U)'); ?>"><i class="fa fa-backward"></i></a></li>
+		<li><a onClick="location.href = document.referrer;" title="<?php echo _('Back to mainview (ESC / U)'); ?>"><i class="fa fa-backward"></i></a></li>
 		<li><a href="#"><?php echo $spot['formatname']; ?></a></li>
 		<li>
 		<?php

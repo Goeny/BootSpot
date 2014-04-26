@@ -37,8 +37,8 @@
 			<div class="panel-heading">
 				<h3 class="panel-title"><?php echo _('Spots'); ?></h3>
 			</div>
-			<div class="panel-body">
-				<table class="table table-striped table-hover table-condensed" summary="Spots">
+			<div class="spots panel-body">
+				<table class="spots table table-striped table-hover table-condensed" summary="Spots">
 					<thead>
 						<tr class="head">
 							<th class='category'> <a href="<?php echo $tplHelper->makeSortUrl('index', 'category', ''); ?>" title="<?php echo _('Sort on category'); ?>"><?php echo _('Cat.'); ?></a> </th> 
@@ -248,6 +248,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			</div>
 		</div>
 <?php if ($prevPage >= 0 || $nextPage > 0) { ?>
+				<div class="navi">
 				<table class="footer" summary="Footer">
 					<tbody>
 						<tr>
@@ -256,11 +257,12 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 <?php }?> 
 							<td class="button<?php if ($nextPage <= 0) {echo " last";} ?>"></td>
 <?php if ($nextPage > 0) { ?> 
-							<td class="next"><a href="?direction=next&amp;pagenr=<?php echo $nextPage . $tplHelper->convertSortToQueryParams() . $tplHelper->convertFilterToQueryParams(); ?>">&gt;&gt;</a></td>
+							<td class="next"><a class="next" href="?direction=next&amp;pagenr=<?php echo $nextPage . $tplHelper->convertSortToQueryParams() . $tplHelper->convertFilterToQueryParams(); ?>">&gt;&gt;</a></td>
 <?php } ?>
 						</tr>
 					</tbody>
 				</table>
+				</div>
 			<?php if ($show_multinzb_checkbox) { echo "</form>"; } ?>
 				<input type="hidden" id="perPage" value="<?php echo $currentSession['user']['prefs']['perpage'] ?>">
 				<input type="hidden" id="nextPage" value="<?php echo $nextPage; ?>">
