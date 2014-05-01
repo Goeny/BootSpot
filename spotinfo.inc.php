@@ -72,8 +72,9 @@
 		<?php
 		} 
 		elseif($spot['rating'] > 0) {
+			$star = '<i class="fa fa-star"></i>';
 		?>
-		<a href="#"><?php echo sprintf(ngettext('This spot thas %d star', 'This spot has %d stars', $spot['rating']), $spot['rating']); ?></a>
+		<a href="#"><?php echo str_repeat($star, $spot['rating']); ?></a>
 		<?php
 		}
 		?>
@@ -132,6 +133,13 @@
 	</ul>
   </div>
   </div>  
+</div>
+
+<div id="Lightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="lightbox-content">
+		<img src="<?php echo $tplHelper->makeImageUrl($spot, 520, 520); ?>" alt="<?php echo $spot['title'];?>">
+		<div class="lightbox-caption"><p><?php echo $spot['title']; ?></p></div>
+	</div>
 </div>
 
 <div class="panel panel-primary">
@@ -197,7 +205,7 @@ echo "</th>";
 				<div class="col-lg-12">
 					
 					<div class="col-lg-3">
-						<a onclick="toggleImageSize()" class="thumbnail">
+						<a data-toggle="lightbox" data-target="#Lightbox" class="thumbnail">
 							<img src="<?php echo $tplHelper->makeImageUrl($spot, 260, 260); ?>" alt="<?php echo $spot['title'];?>">
 						</a>
 					</div>
@@ -373,6 +381,7 @@ echo "</th>";
 		</div>
 		
 		<input type="hidden" id="messageid" value="<?php echo $spot['messageid'] ?>" />
+		
 <?php
 require_once "includes/footer.inc.php";
 ?>

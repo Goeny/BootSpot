@@ -1,3 +1,14 @@
+/* Filters */
+table tbody tr td a:hover{
+	text-decoration: none;
+}
+
+/* Custom badge */
+.badge .green{
+	background-color: green;
+	color: #fff;
+}
+
 /* Category Label */
 .label-cat{
   display: block;

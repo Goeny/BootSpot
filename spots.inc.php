@@ -37,7 +37,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title"><?php echo _('Spots'); ?></h3>
 			</div>
-			<div class="spots panel-body">
+			<div id="spots" class="spots panel-body">
 				<table class="spots table table-striped table-hover table-condensed" summary="Spots">
 					<thead>
 						<tr class="head">
@@ -148,7 +148,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		}
 
 		echo "\t\t\t\t\t\t\t";
-		echo "<tr class='" . $tplHelper->cat2CssClass($spot);
+		echo "<tr class='" . $tplHelper->filter2cat($tplHelper->cat2CssClass($spot));
 		if ($spot['hasbeendownloaded']) {
 			echo " downloadedspot";
 			
@@ -180,7 +180,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		}
 
 		if ($show_comments) {
-			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "#comments' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\"><span class='badge'>" . $commentCountValue . "</span></a></td>";
+			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "#comments' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\"><span class='badge alert-success'>" . $commentCountValue . "</span></a></td>";
 		} # if
 		
 		$markSpot = '';
@@ -271,7 +271,6 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			
 			</div>
 			<div class="clear"></div>
-
 <?php
 	/* Render de header en filter templates */
 	if (!isset($data['spotsonly'])) {

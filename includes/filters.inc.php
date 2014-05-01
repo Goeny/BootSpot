@@ -299,9 +299,9 @@
 							echo '<td><a class="filter ' . $filter['title'];
 														
 							echo '" href="' . $strFilter . '">';
-							echo '<span class="spoticon spoticon-' . str_replace('.png', '', $filter['icon']) . '">&nbsp;</span>' . $filter['title'];
+							echo '<i class="fa fa-' . $filter['icon'] . '"></i> ' . $filter['title'];
 							if ($newCount > 0) { 
-								echo " <span onclick=\"gotoNew('".$strFilter."')\" class='badge' title='" . sprintf(_('Show new spots in filter &quot;%s&quot;'), $filter['title']) . "'>$newCount</span>";
+								echo " <span onclick=\"gotoNew('".$strFilter."')\" class='badge alert-info' title='" . sprintf(_('Show new spots in filter &quot;%s&quot;'), $filter['title']) . "'>$newCount</span>";
 							} # if 
 
 							# als er children zijn, moeten we de category kunnen inklappen

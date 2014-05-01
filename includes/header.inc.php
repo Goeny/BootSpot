@@ -13,9 +13,14 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<!-- Custom theme related css -->
 	<link rel="stylesheet" href="templates/bootspot/css/custom-bootstrap.css">
-	<!-- Bootstrap switch css -->
+	
+	<!-- Bootstrap switch css and js-->
 	<link rel="stylesheet" href="templates/bootspot/css/bootstrap-switch.css">
 	<script src="templates/bootspot/js/bootstrap-switch.min.js"></script>
+	
+	<!-- Bootstrap Lightbox css and js -->
+	<link rel="stylesheet" href="templates/bootspot/css/bootstrap-lightbox.min.css">
+	<script src="templates/bootspot/js/bootstrap-lightbox.min.js"></script>
 	
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
 		<title>SpotWeb - <?php echo $pagetitle?></title>
@@ -40,7 +45,6 @@
 				$("[rel=tooltip]").tooltip({ placement: 'right'});
 			});
             </script>     
-   
 	</head>
 	<body>
 		<div class="container" id="container">
