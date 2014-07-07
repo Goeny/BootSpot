@@ -243,29 +243,7 @@ echo "</th>";
 								<tr>
 									<td colspan="2">&nbsp;</td>
 								</tr>
-								<?php
-                                if ($spot['mcid'] !== null) {
-                                ?>
-									<tr>
-										<th><?php echo _('Collection'); ?></th>
-										<td><a href="<?php echo $tplHelper->makeCollectionIdSearchUrl($spot); ?>"><?php echo $spot['cleantitle']; if ($spot['release_year'] !== null) { echo ' (' . $spot['release_year'] . ')'; } ?></a></td>
-									</tr>
-                                <?php
-                                    if (!empty($episodeString)) {
-                                ?>
-										<tr>
-											<th><?php echo _('Episode'); ?></th>
-											<td><?php echo $episodeString; ?></td>
-										</tr>
-                                <?php
-                                    } // if
-                                ?>
-                                    <tr>
-										<td colspan="2">&nbsp;</td>
-									</tr>
-                                <?php
-                                } // if
-                                ?>
+								
 								<tr>
 									<th><?php echo _('Website'); ?></th>
 									<td><a href='<?php echo $spot['website']; ?>' rel="nofollow"><?php echo $spot['website'];?></a></td>
@@ -359,29 +337,39 @@ echo "</th>";
 				<pre><?php echo $spot['description']; ?></pre>
 			</div>
 			
-<?php if ($tplHelper->allowed(SpotSecurity::spotsec_view_comments, '')) { ?>
+			<?php 
+			if ($tplHelper->allowed(SpotSecurity::spotsec_view_comments, '')) { 
+			?>
+
 			<div class="col col-lg-12">
-				<h4><?php echo _('Comments'); ?> <span class="commentcount"># 0</span></h4>
-				<ul id="commentslist">
-				<?php 
-				if ($tplHelper->allowed(SpotSecurity::spotsec_post_comment, '')) { 
-					if ($currentSession['user']['userid'] > 2) { 
-						echo "<li class='addComment'>";
-						echo "<a class='togglePostComment' title='" . _('Add comment (open/close windows)') . "'>" . 
-							_('Add comment') . "<span></span></a>
-							<div>
-								<div></div>";
-						include "postcomment.inc.php"; 
-						echo "</div></li>";
-	}
-} ?>
-				</ul>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title"><?php echo _('Comments'); ?></h3>
+					</div>
+					<div class="panel-body">
+					
+						<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+							<li class="active"><a href="#comments" data-toggle="tab"><?php echo _('Comments'); ?> <span class="commentcount badge alert-info"># 0</span></a></li>
+							<li><a href="#addComment" data-toggle="tab"><?php echo _('Add comment'); ?></a></li>
+						</ul>
+			
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade active in" id="comments">
+								<ul id="commentslist">
+								</ul>
+							</div>
+							<div class="tab-pane fade" id="addComment"><?php include('postcomment.inc.php'); ?></div>
+						</div>
+					</div>
+				</div>
 			</div>
-<?php } ?>
+			<?php
+			} 
+			?>
 		</div>
 		
 		<input type="hidden" id="messageid" value="<?php echo $spot['messageid'] ?>" />
-		
+	
 <?php
 require_once "includes/footer.inc.php";
 ?>

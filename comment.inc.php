@@ -33,15 +33,34 @@
 				$rating = '<span class="rating" title="' . sprintf(ngettext("%s gave this spot %d star", "%s gave this spot %d stars", $comment['spotrating']), $comment['fromhdr'], $comment['spotrating']) . '"><span style="width:' . $comment['spotrating'] * 4 . 'px;"></span></span>';
 			}
 ?>
-
-						<div class="well">
-						<blockquote <?php if ($commenterIsPoster) { echo ' class="info"'; } ?>>
-						<?php if ($show_avatars) { ?>
-							<img class="commentavatar" src='<?php echo $tplHelper->makeCommenterImageUrl($comment); ?>'>
-						<?php } ?>
-						<small><?php echo $rating; ?><?php echo sprintf(_('Posted by %s'), '<span class="user">' . $comment['fromhdr'] . '</span>'); ?>
+			<div class="comments effect">
+			<blockquote <?php if ($commenterIsPoster) { echo ' class="alert-info"'; } ?>>
+				<?php 
+				if ($show_avatars) { 
+				?>
+					<img class="commentavatar" src='<?php echo $tplHelper->makeCommenterImageUrl($comment); ?>'>
+				<?php 
+				} 
+				?>
+				<small>
+					<?php echo $rating; ?><?php echo sprintf(_('Posted by %s'), '<span class="user"><strong>' . $comment['fromhdr'] . '</strong></span>'); ?>
 					(<a class="spotterid" target = "_parent" href="<?php echo $tplHelper->makeSpotterIdUrl($comment); ?>" title='<?php echo sprintf(_('Find spots from %s'), $comment['fromhdr']); ?>'><?php echo $comment['spotterid']; ?></a>
-					<?php if ($allow_blackList) { ?> <a class="delete blacklistuserlink_<?php echo htmlspecialchars($comment['spotterid']); ?>" title="<?php echo _('Blacklist this sender'); ?>" onclick="blacklistSpotterId('<?php echo htmlspecialchars($comment['spotterid']); ?>');"><i class="fa fa-lock"></i></a><?php } ?>
+					<?php 
+					if ($allow_blackList) { 
+					?>
+						<div class="mask">
+							<div class="btn-group pull-right">
+								<a 
+								class="btn btn-primary btn-xs delete blacklistuserlink_<?php echo htmlspecialchars($comment['spotterid']); ?>" 
+								title="<?php echo _('Blacklist this sender'); ?>" 
+								onclick="blacklistSpotterId('<?php echo htmlspecialchars($comment['spotterid']); ?>');">
+									<i class="fa fa-lock"></i>
+								</a>
+							</div>
+						</div>
+					<?php 
+					} 
+					?>
 					) @ <?php echo $tplHelper->formatDate($comment['stamp'], 'comment'); ?> </small> 
 					<br />
 					<?php if ($commentIsModerated) { echo '<div class="well well-sm">' . _('This comment is moderated') . '</div>'; } ?>

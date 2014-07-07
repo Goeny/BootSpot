@@ -28,3 +28,28 @@ table tbody tr td a:hover{
 .new{
 	font-weight: bold;
 }
+
+/* Comment button hover */
+div.comments blockquote{
+	font-size: 12px;
+}
+/*
+div.comments blockquote div.btn-group { 
+	display:none;
+}
+div.comments blockquote:hover div.btn-group { 
+	display:inline-block;
+}
+*/
+
+.effect div.btn-group {
+   position:relative;
+   top:-10px; /* Center the link */
+   opacity: 0;
+   transition: opacity 0.5s 0s ease-in-out;
+}
+
+.effect:hover div.btn-group {
+   opacity:1;
+   transition-delay: 0.3s;
+}
