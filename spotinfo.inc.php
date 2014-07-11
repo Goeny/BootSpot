@@ -135,12 +135,6 @@
   </div>  
 </div>
 
-<div id="Lightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="lightbox-content">
-		<img src="<?php echo $tplHelper->makeImageUrl($spot, 520, 520); ?>" alt="<?php echo $spot['title'];?>">
-		<div class="lightbox-caption"><p><?php echo $spot['title']; ?></p></div>
-	</div>
-</div>
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
@@ -205,11 +199,21 @@ echo "</th>";
 				<div class="col-lg-12">
 					
 					<div class="col-lg-3">
-						<a data-toggle="lightbox" data-target="#Lightbox" class="thumbnail">
+                    
+                    	<a data-toggle="lightbox" href="#Lightbox" class="thumbnail">
 							<img src="<?php echo $tplHelper->makeImageUrl($spot, 260, 260); ?>" alt="<?php echo $spot['title'];?>">
 						</a>
+						<div id="Lightbox" class="lightbox fade"  tabindex="-1" role="dialog" aria-hidden="true">
+							<div class='lightbox-dialog'>
+								<div class='lightbox-content'>
+									<img src="<?php echo $tplHelper->makeImageUrl($spot, 520, 520); ?>">
+									<div class="lightbox-caption"><?php echo $spot['title']; ?></div>
+								</div>
+							</div>
+						</div>
+                        
 					</div>
-				
+                    				
 					<div class="col-lg-9">
 						<table class="table table-condensed">
 							<tbody>
