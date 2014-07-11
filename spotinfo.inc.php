@@ -334,7 +334,7 @@ echo "</th>";
 								
 			<div class="description">
 				<h4><?php echo _('Post Description'); ?></h4>
-				<pre><?php echo $spot['description']; ?></pre>
+				<pre><?php echo html_entity_decode($spot['description']); ?></pre>
 			</div>
 			
 			<?php 
