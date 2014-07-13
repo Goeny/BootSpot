@@ -51,6 +51,16 @@
 				<input type="hidden" name="blacklistspotterform[idtype]" value="1">
 			</form>
 
+<div id="Lightbox" class="lightbox fade"  tabindex="-1" role="dialog" aria-hidden="false">
+	<div class='lightbox-dialog'>
+		<div class='lightbox-content'>
+			<img src="<?php echo $tplHelper->makeImageUrl($spot, 520, 520); ?>">
+			<div class="lightbox-caption"><?php echo $spot['title']; ?></div>
+		</div>
+	</div>
+</div>
+
+
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
   <div class="navbar-header">
@@ -196,22 +206,13 @@ echo "</th>";
 			?>
 			
 			<div class="container">
-				<div class="col-lg-12">
-					
+				<div class="col-lg-12">                    
 					<div class="col-lg-3">
                     
                     	<a data-toggle="lightbox" href="#Lightbox" class="thumbnail">
 							<img src="<?php echo $tplHelper->makeImageUrl($spot, 260, 260); ?>" alt="<?php echo $spot['title'];?>">
 						</a>
-						<div id="Lightbox" class="lightbox fade"  tabindex="-1" role="dialog" aria-hidden="true">
-							<div class='lightbox-dialog'>
-								<div class='lightbox-content'>
-									<img src="<?php echo $tplHelper->makeImageUrl($spot, 520, 520); ?>">
-									<div class="lightbox-caption"><?php echo $spot['title']; ?></div>
-								</div>
-							</div>
-						</div>
-                        
+                   
 					</div>
                     				
 					<div class="col-lg-9">
