@@ -121,8 +121,9 @@
 
 
 			<?php if ($tplHelper->allowed(SpotSecurity::spotsec_perform_search, '')) { ?>
-				  
+				  <div class="form-group">
 				  <form id="filterform" action="<?php echo $tplHelper->makeSelfUrl('')?>" onsubmit="submitFilterBtn(this)" class="navbar-form navbar-left">
+				  	
 				  <input type="hidden" id="searchfilter-includeprevfilter-toggle" name="search[includeinfilter]" value="false" />
 			
 			<?php include('templates/bootspot/lib/filters.search.php'); ?>
@@ -134,9 +135,16 @@
     var sliderMaxReportCount = <?php echo (isset($maxReportCount)) ? $maxReportCount : "21"; ?>;
 					</script>
 					<input type="hidden" id="search-tree" name="search[tree]" value="<?php echo $tplHelper->categoryListToDynatree(); ?>">
-					<input class="form-control col-lg-8" type="text" name="search[text]" placeholder="Zoeken" value="<?php echo htmlspecialchars($searchText); ?>"><i class="icon-search"></i>
-					<button class="btn btn-default" type='submit' onclick='$("#searchfilter-includeprevfilter-toggle").val("true");' title='<?php echo _('Search within current filters'); ?>'><i class='fa fa-search-plus'></i></button>
-					<button class="btn btn-default" type='submit' onclick='$("#searchfilter-includeprevfilter-toggle").val(""); return true;' title='<?php echo _('Search'); ?>'><i class='fa fa-search'></i></button>
+					<div class="input-group">
+						<input class="form-control col-lg-8" type="text" name="search[text]" placeholder="Zoeken" value="<?php echo htmlspecialchars($searchText); ?>"><i class="icon-search"></i>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type='submit' onclick='$("#searchfilter-includeprevfilter-toggle").val("true");' title='<?php echo _('Search within current filters'); ?>'><i class='fa fa-search-plus'></i></button>
+						</span>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type='submit' onclick='$("#searchfilter-includeprevfilter-toggle").val(""); return true;' title='<?php echo _('Search'); ?>'><i class='fa fa-search'></i></button>
+						</span>
+					</div>
+					</div>
 		</div>
 	</div>
 </div>
@@ -339,7 +347,89 @@
 		</div>
 		
 
+	<!-- SABnzbd panel -->
+	<script src="templates/bootspot/js/sabpanel.js"></script>
 	
+<!-- BEGIN SABNZBD PANEL -->
+<div class="modal fade sabnzbdPanel" id="mySAB" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">
+        	<img src="templates/bootspot/images/sablogo.png" height="32" /> 
+            SABnzbd Panel
+        </h4>
+      </div>
+		<div class="modal-body sabnzbdPanel">
+
+		<?php 
+		if ($tplHelper->allowed(SpotSecurity::spotsec_use_sabapi, '')) { 
+			$apikey = $tplHelper->apiToHash($currentSession['user']['apikey']);
+			echo "<input class='apikey' type='hidden' value='".$apikey."'>";
+			if ($tplHelper->getNzbHandlerApiSupport() === false){
+		?>
+			<table class="sabInfo table" summary="SABnzbd infomatie">
+				<tr>
+					<td><?php echo _('Selected NZB download methode doesn\'t support sidepanel'); ?></td>
+				</tr>
+			</table>			
+		<?php	
+			}
+			else{
+		?>		
+			<table class="sabInfo table" summary="SABnzbd infomatie">
+				<tr>
+					<td><?php echo _('Status:'); ?></td><td class="state"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Free storage:'); ?></td><td class="diskspace"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Speed:'); ?></td><td class="speed"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Max. speed:'); ?></td><td class="speedlimit"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('To go:'); ?></td><td class="timeleft"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('ETA:'); ?></td><td class="eta"></td>
+				</tr>
+				<tr>
+					<td><?php echo _('Queue:'); ?></td><td class="mb"></td>
+				</tr>
+			</table>
+		
+			<canvas id="graph table" width="215" height="125"></canvas>
+			<table class="sabGraphData" summary="SABnzbd Graph Data" style="display:none;">
+				<tbody>
+					<tr>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<h4><?php echo _('Queue'); ?></h4>
+			<table class="sabQueue table" summary="SABnzbd queue">
+				<tbody>
+					<tr>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		<?php 	
+			}
+		} 
+		?>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+    </div>
+  </div>
+</div>	
+<!-- EINDE SABNZBD PANEL -->	
 		
 <?php
     SpotTiming::stop('tpl:filters');
