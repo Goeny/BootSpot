@@ -40,13 +40,14 @@
 		<script type='text/javascript'>
 			// console.timeEnd("parse-css");
 		</script>
-		<script type='text/javascript'>
-			$(document).ready(function(){
-				$("[rel=tooltip]").tooltip({ placement: 'right'});
-			});
-            </script> 
-            
-    <script src="templates/bootspot/js/infiniteScroll.min.js"></script>    
+		<script type="text/javascript">
+$(document).ready(function(){
+    $('[rel="tooltip"]').tooltip({
+        placement : 'left'
+    });
+});
+</script>
+             
 	</head>
 	<body>
 		<div class="container" id="container">

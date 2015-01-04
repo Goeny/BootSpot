@@ -113,7 +113,7 @@ class SpotTemplateHelper_Bootspot extends SpotTemplateHelper {
 	function getStaticFiles($type) {
 		switch($type) {
 			case 'js'	: {
-				return array('js/jquery/jquery.min.js', 
+				return array( 
 								'js/jquery/jquery-ui.custom.min.js',
 								'js/jquery/jquery.cookie.js',
 								'js/jquery/jquery.hotkeys.js',
@@ -129,7 +129,6 @@ class SpotTemplateHelper_Bootspot extends SpotTemplateHelper {
 								'templates/bootspot/js/bootspotpost.js',
 								'templates/bootspot/js/treehelper.js',
 								'templates/bootspot/js/jquery.ui.nestedSortable.js',
-								'templates/bootspot/js/jquery.tipTip.minified.js',
 								'templates/bootspot/js/bootstrap-datepicker.js',
 								'templates/bootspot/js/bootstrap-switch.min.js'
 								);

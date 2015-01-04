@@ -123,7 +123,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		if($spot['rating'] == 0) {
 			$rating = '';
 		} elseif($spot['rating'] > 0) {
-			$rating = '<span class="rating" title="' . sprintf(ngettext('This spot has %d star', 'This spot has %d stars', $spot['rating']), $spot['rating']) . '"><span style="width:' . $spot['rating'] * 4 . 'px;"></span></span>';
+			$rating = '<span class="rating" rel="tooltip" title="' . sprintf(ngettext('This spot has %d star', 'This spot has %d stars', $spot['rating']), $spot['rating']) . '"><span style="width:' . $spot['rating'] * 4 . 'px;"></span></span>';
 		}
 
 		if($tplHelper->isModerated($spot)) { 
@@ -144,7 +144,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 				$reportSpamClass = ' red';
 			}
 
-			$reportSpam = '<span class="reportedSpam'.$reportSpamClass.'" title="' . sprintf(ngettext('There is %d spamreport found for this spot', 'There are %d spamreports found for this spot', $spot['reportcount']), $spot['reportcount']) . '"><span>'.$spot['reportcount'].'</span></span>';
+			$reportSpam = '<span class="reportedSpam'.$reportSpamClass.'" rel="tooltip" title="' . sprintf(ngettext('There is %d spamreport found for this spot', 'There are %d spamreports found for this spot', $spot['reportcount']), $spot['reportcount']) . '"><span>'.$spot['reportcount'].'</span></span>';
 		}
 
 		echo "\t\t\t\t\t\t\t";
@@ -163,7 +163,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			echo " moderatedspot";
 		} # if
 		echo "'>";
-		echo "<td class='category'><a href='" . $spot['caturl'] . "' title=\"" . sprintf(_("Go to category '%s'"), $spot['catshortdesc']) . "\"><span class='label label-cat label-".$tplHelper->filter2cat($tplHelper->cat2CssClass($spot))."'>" . $spot['catshortdesc'] . "</span></a></td>" .
+		echo "<td class='category'><a href='" . $spot['caturl'] . "' rel='tooltip' title=\"" . sprintf(_("Go to category '%s'"), $spot['catshortdesc']) . "\"><span class='label label-cat label-".$tplHelper->filter2cat($tplHelper->cat2CssClass($spot))."'>" . $spot['catshortdesc'] . "</span></a></td>" .
 			 "<td class='title " . $newSpotClass . "'><a href='" . $spot['spoturl'] . "' title='" . $spot['title'] . "'>" . $reportSpam . $rating . $markSpot . $spot['title'] . "</a></td>";
 
 		if ($show_editspot_button) {
@@ -174,13 +174,13 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 
 		if ($show_watchlist_button) {
 			echo "<td class='watch'>";
-			echo "<a class='remove watchremove_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','remove',".$spot['id'].")\""; if(!$spot['isbeingwatched']) { echo " style='display: none;'"; } echo " title='" . _('Delete from watchlist (w)') . "'><i class='fa fa-bookmark fa-2x'></i> </a>";
-			echo "<a class='add watchadd_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','add',".$spot['id'].")\""; if($spot['isbeingwatched']) { echo " style='display: none;'"; } echo " title='" . _('Position in watchlist (w)') . "'><i class='fa fa-bookmark-o fa-2x'></i> </a>";
+			echo "<a class='remove watchremove_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','remove',".$spot['id'].")\""; if(!$spot['isbeingwatched']) { echo " style='display: none;'"; } echo " rel='tooltip' title='" . _('Delete from watchlist (w)') . "'><i class='fa fa-bookmark fa-2x'></i> </a>";
+			echo "<a class='add watchadd_".$spot['id']."' onclick=\"toggleWatchSpot('".$spot['messageid']."','add',".$spot['id'].")\""; if($spot['isbeingwatched']) { echo " style='display: none;'"; } echo " rel='tooltip' title='" . _('Position in watchlist (w)') . "'><i class='fa fa-bookmark-o fa-2x'></i> </a>";
 			echo "</td>";
 		}
 
 		if ($show_comments) {
-			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "#comments' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\"><span class='badge alert-success'>" . $commentCountValue . "</span></a></td>";
+			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "#comments' rel='tooltip' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\"><span class='badge alert-success'>" . $commentCountValue . "</span></a></td>";
 		} # if
 		
 		$markSpot = '';
@@ -191,8 +191,8 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		if($spot['idtype'] == 1) {
 			$markSpot = '<span class="markSpot">B</span>';
 		}		
-		echo "<td class='genre'><a href='" . $spot['subcaturl'] . "' title='" . sprintf(_('Search spot in category %s'), $spot['catdesc']) . "'>" . $spot['catdesc'] . "</a></td>" .
-			 "<td class='poster'><a href='" . $spot['posterurl'] . "' title='" . sprintf(_('Search spot from %s'), $spot['poster']) . "'>" . $markSpot . $spot['poster'] . "</a></td>" .
+		echo "<td class='genre'><a href='" . $spot['subcaturl'] . "' rel='tooltip' title='" . sprintf(_('Search spot in category %s'), $spot['catdesc']) . "'>" . $spot['catdesc'] . "</a></td>" .
+			 "<td class='poster'><a href='" . $spot['posterurl'] . "' rel='tooltip' title='" . sprintf(_('Search spot from %s'), $spot['poster']) . "'>" . $markSpot . $spot['poster'] . "</a></td>" .
 			 "<td class='date'><i class='fa fa-clock-o fa-2x' rel='tooltip' title='". $tplHelper->formatDate($spot['stamp'], 'spotlist') ."'></i></td>";
 
 		if ($show_filesize) {
@@ -271,25 +271,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			
 			</div>
 			<div class="clear"></div>
-<script>
-$('#spots').infinitescroll({
-  loading: {
-    finished: undefined,
-    finishedMsg: "<em>Congratulations, you've reached the end of the internet.</em>",
-    msg: null,
-    msgText: '<i class="fa fa-refresh fa-spin fa-2x"></i>',
-    speed: 'slow'
-  },
-  behavior: undefined,
-  nextSelector: "div.navi a.next",
-  navSelector: "div.navi",
-  extraScrollPx: 150,
-  itemSelector: "div.spots",
-  animate: true,
-  pathParse: undefined,
-  dataType: 'html'
-});
-</script>
+
 <?php
 	/* Render de header en filter templates */
 	if (!isset($data['spotsonly'])) {
