@@ -271,6 +271,25 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			
 			</div>
 			<div class="clear"></div>
+<script>
+$('#spots').infinitescroll({
+  loading: {
+    finished: undefined,
+    finishedMsg: "<em>Congratulations, you've reached the end of the internet.</em>",
+    msg: null,
+    msgText: '<i class="fa fa-refresh fa-spin fa-2x"></i>',
+    speed: 'slow'
+  },
+  behavior: undefined,
+  nextSelector: "div.navi a.next",
+  navSelector: "div.navi",
+  extraScrollPx: 150,
+  itemSelector: "div.spots",
+  animate: true,
+  pathParse: undefined,
+  dataType: 'html'
+});
+</script>
 <?php
 	/* Render de header en filter templates */
 	if (!isset($data['spotsonly'])) {

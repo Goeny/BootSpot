@@ -6,7 +6,7 @@
 	<!-- FontAwesome -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<!-- Bootswatch Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.css">
+	<link rel="stylesheet" href="templates/bootspot/css/bootstrap.min.css">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="http://bootswatch.com/assets/css/bootswatch.min.css">
 	<!-- Latest compiled and minified JavaScript -->
@@ -44,7 +44,9 @@
 			$(document).ready(function(){
 				$("[rel=tooltip]").tooltip({ placement: 'right'});
 			});
-            </script>     
+            </script> 
+            
+    <script src="templates/bootspot/js/infiniteScroll.min.js"></script>    
 	</head>
 	<body>
 		<div class="container" id="container">
