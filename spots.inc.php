@@ -245,6 +245,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 ?>
 					</tbody>
 				</table>
+				<div id="loader" style="display: none;" class=""><center><i class="fa fa-spinner fa-spin fa-2x"></i></center></div>
 			</div>
 		</div>
 <?php if ($prevPage >= 0 || $nextPage > 0) { ?>
@@ -262,6 +263,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 						</tr>
 					</tbody>
 				</table>
+				
 				</div>
 			<?php if ($show_multinzb_checkbox) { echo "</form>"; } ?>
 				<input type="hidden" id="perPage" value="<?php echo $currentSession['user']['prefs']['perpage'] ?>">
