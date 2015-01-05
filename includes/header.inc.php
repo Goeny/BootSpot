@@ -50,5 +50,5 @@ $(document).ready(function(){
              
 	</head>
 	<body>
-		<div id="overlay" style="display: none;" class=""><center><i class="fa fa-spinner fa-spin fa-2x"></i></center></div>
+		<div id="overlay"><i class="fa fa-spinner fa-spin fa-2x"></i> Loading...</div>
 		<div class="container" id="container">

@@ -345,10 +345,6 @@
 				</div>
 			</div>
 		</div>
-		
-
-	<!-- SABnzbd panel -->
-	<script src="templates/bootspot/js/sabpanel.js"></script>
 	
 <!-- BEGIN SABNZBD PANEL -->
 <div class="modal fade sabnzbdPanel" id="mySAB" tabindex="-1" role="dialog" aria-hidden="true">
