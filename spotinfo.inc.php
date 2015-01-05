@@ -65,7 +65,7 @@
   			</div>
   			<div class="navbar-collapse collapse navbar-responsive-collapse">
     			<ul class="nav navbar-nav">
-					<li><a onClick="location.href = document.referrer;" title="<?php echo _('Back to mainview (ESC / U)'); ?>"><i class="fa fa-backward"></i></a></li>
+					<li><a onClick="location.href = document.referrer;" rel="tooltip-down" title="<?php echo _('Back to mainview (ESC / U)'); ?>"><i class="fa fa-backward"></i></a></li>
 					<li><a href="#"><?php echo $spot['formatname']; ?></a></li>
 					<li>
 						<?php
@@ -97,7 +97,7 @@
 							}
 							else{
 					?>
-							<li><a onclick="return false;" class="spamreport-button success" title="<?php echo _('You already reported this spot as spam'); ?>"><?php echo _('You already reported this spot as spam'); ?></a></li>
+							<li><a onclick="return false;" class="spamreport-button success" rel="tooltip-down" title="<?php echo _('You already reported this spot as spam'); ?>"><?php echo _('You already reported this spot as spam'); ?></a></li>
 					<?php
 							}
 					?>
@@ -112,24 +112,24 @@
 				<?php 
 				if ($show_watchlist_button) {
 				?>
-					<li><a class="remove watchremove_<?php echo $spot['id']; ?>" onclick="toggleWatchSpot('<?php echo $spot['messageid']; ?>','remove', <?php echo $spot['id']; ?>)" <?php if($spot['isbeingwatched'] == false) { ?> style="display: none" <?php } ?> title="<?php echo _('Delete from watchlist (w)'); ?>"><i class="fa fa-bookmark"></i></a></li>
-					<li><a class="remove watchremove_<?php echo $spot['id']; ?>" onclick="toggleWatchSpot('<?php echo $spot['messageid']; ?>','add', <?php echo $spot['id']; ?>)" <?php if($spot['isbeingwatched'] == true) { ?> style="display: none" <?php } ?> title="<?php echo _('Position in watchlist (w)'); ?>"><i class="fa fa-bookmark-o"></i></a></li>
+					<li><a class="remove watchremove_<?php echo $spot['id']; ?>" onclick="toggleWatchSpot('<?php echo $spot['messageid']; ?>','remove', <?php echo $spot['id']; ?>)" <?php if($spot['isbeingwatched'] == false) { ?> style="display: none" <?php } ?> rel="tooltip-down" title="<?php echo _('Delete from watchlist (w)'); ?>"><i class="fa fa-bookmark"></i></a></li>
+					<li><a class="remove watchremove_<?php echo $spot['id']; ?>" onclick="toggleWatchSpot('<?php echo $spot['messageid']; ?>','add', <?php echo $spot['id']; ?>)" <?php if($spot['isbeingwatched'] == true) { ?> style="display: none" <?php } ?> rel="tooltip-down" title="<?php echo _('Position in watchlist (w)'); ?>"><i class="fa fa-bookmark-o"></i></a></li>
 				<?php
 				}
 				if ($show_nzb_button) { 
 				?>
-					<li><a class="nzb<?php if ($spot['hasbeendownloaded']) { echo " downloaded"; } ?>" href="<?php echo $tplHelper->makeNzbUrl($spot); ?>" title="<?php echo _('Download NZB'); if ($spot['hasbeendownloaded']) {echo _('(this spot has already been downloaded)');} echo " (n)"; ?>"><i class="fa fa-hdd-o"></i> </a></li>
+					<li><a class="nzb<?php if ($spot['hasbeendownloaded']) { echo " downloaded"; } ?>" href="<?php echo $tplHelper->makeNzbUrl($spot); ?>" rel="tooltip-down" title="<?php echo _('Download NZB'); if ($spot['hasbeendownloaded']) {echo _('(this spot has already been downloaded)');} echo " (n)"; ?>"><i class="fa fa-hdd-o"></i> </a></li>
 				<?php 
 				}
 				if ((!empty($spot['nzb'])) && (!empty($spot['sabnzbdurl']))) {
 					if ($spot['hasbeendownloaded']) {
 				?>
-					<li><a onclick="downloadSabnzbd('<?php echo $spot['id']; ?>','<?php echo $spot['sabnzbdurl']; ?>','<?php echo $spot['nzbhandlertype']; ?>')" rel="tooltip" title="<?php echo _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)'); ?>"><i class="sab_<?php echo $spot['id']; ?> fa fa-check"></i> </a></li>
+					<li><a onclick="downloadSabnzbd('<?php echo $spot['id']; ?>','<?php echo $spot['sabnzbdurl']; ?>','<?php echo $spot['nzbhandlertype']; ?>')" rel="tooltip-down" title="<?php echo _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)'); ?>"><i class="sab_<?php echo $spot['id']; ?> fa fa-check"></i> </a></li>
 				<?php
 					}
 					else{
 				?>
-					<li><a onclick="downloadSabnzbd('<?php echo $spot['id']; ?>','<?php echo $spot['sabnzbdurl']; ?>','<?php echo $spot['nzbhandlertype']; ?>')" rel="tooltip" title="<?php echo _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)'); ?>"><i class="sab_<?php echo $spot['id']; ?> fa fa-download"></i> </a></li>
+					<li><a onclick="downloadSabnzbd('<?php echo $spot['id']; ?>','<?php echo $spot['sabnzbdurl']; ?>','<?php echo $spot['nzbhandlertype']; ?>')" rel="tooltip-down" title="<?php echo _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)'); ?>"><i class="sab_<?php echo $spot['id']; ?> fa fa-download"></i> </a></li>
 				<?php
 					}
 				}
@@ -236,7 +236,7 @@
 						<tbody>
 							<tr>
 								<th><?php echo _('Category'); ?></th>
-								<td><a href="<?php echo $tplHelper->makeCatUrl($spot); ?>" title='<?php echo _('Find spots in this category'); ?> "<?php echo $spot['catname']; ?>"'><?php echo $spot['catname']; ?></a></td>
+								<td><a href="<?php echo $tplHelper->makeCatUrl($spot); ?>" rel="tooltip" title='<?php echo _('Find spots in this category'); ?> "<?php echo $spot['catname']; ?>"'><?php echo $spot['catname']; ?></a></td>
 							</tr>
 							<?php
 							foreach(array('a', 'b', 'c', 'd', 'z') as $subcatType) {
@@ -246,7 +246,7 @@
 							?>
 							<tr>
 								<th><?php echo SpotCategories::SubcatDescription($spot['category'], $subcatType); ?></th>
-								<td><a href="<?php echo $tplHelper->makeSubCatUrl($spot, $sub); ?>" title="<?php echo _('Find spots in this category') . ' ' . SpotCategories::Cat2Desc($spot['category'], $sub); ?>"><?php echo SpotCategories::Cat2Desc($spot['category'], $sub); ?></a></td>
+								<td><a href="<?php echo $tplHelper->makeSubCatUrl($spot, $sub); ?>" rel="tooltip" title="<?php echo _('Find spots in this category') . ' ' . SpotCategories::Cat2Desc($spot['category'], $sub); ?>"><?php echo SpotCategories::Cat2Desc($spot['category'], $sub); ?></a></td>
 							</tr>
 							<?php
 									}
@@ -255,7 +255,7 @@
 							?>
 							<tr>
 								<th><?php echo _('Date'); ?></th> 
-								<td title='<?php echo $tplHelper->formatDate($spot['stamp'], 'force_spotlist'); ?>'> <?php echo $tplHelper->formatDate($spot['stamp'], 'spotdetail'); ?> </td> 
+								<td rel="tooltip" title='<?php echo $tplHelper->formatDate($spot['stamp'], 'force_spotlist'); ?>'> <?php echo $tplHelper->formatDate($spot['stamp'], 'spotdetail'); ?> </td> 
 							</tr>
 							<tr>
 								<th><?php echo _('Size'); ?></th> 
@@ -273,11 +273,11 @@
 							</tr>
 							<tr>
 								<th><?php echo _('Sender'); ?></th>
-								<td><a href="<?php echo $tplHelper->makePosterUrl($spot); ?>" title='<?php echo sprintf(_('Find spots from %s'), $spot['poster']); ?>'><span class="label label-primary"><?php echo $spot['poster']; ?></span></a>
+								<td><a href="<?php echo $tplHelper->makePosterUrl($spot); ?>" rel="tooltip" title='<?php echo sprintf(_('Find spots from %s'), $spot['poster']); ?>'><span class="label label-primary"><?php echo $spot['poster']; ?></span></a>
 								<?php 
 								if (!empty($spot['spotterid'])) { 
 								?> 
-								<a href="<?php echo $tplHelper->makeSpotterIdUrl($spot); ?>" title='<?php echo sprintf(_('Find spots from %s'), $spot['spotterid']);?>'><span class="label label-default"><?php echo $spot['spotterid']; ?></span></a>
+								<a href="<?php echo $tplHelper->makeSpotterIdUrl($spot); ?>" rel="tooltip" title='<?php echo sprintf(_('Find spots from %s'), $spot['spotterid']);?>'><span class="label label-default"><?php echo $spot['spotterid']; ?></span></a>
 								<?php 
 								} 
 								if ($allow_blackList) { 
@@ -292,7 +292,7 @@
 								} 
 								if ((!empty($spot['spotterid'])) && ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_filters, ''))) { 
 								?> 
-								<a href="" class="addspotterasfilter" title="<?php echo _("Add filter for this spotter"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'SpotterID', '<?php echo urlencode($spot['spotterid']); ?>', 'Zoek spots van &quot;<?php echo urlencode($spot['poster']); ?>&quot;', 'addspotterasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="" class="addspotterasfilter" rel="tooltip" title="<?php echo _("Add filter for this spotter"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'SpotterID', '<?php echo urlencode($spot['spotterid']); ?>', 'Zoek spots van &quot;<?php echo urlencode($spot['poster']); ?>&quot;', 'addspotterasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 								<?php 
 								} 
 								?> 
@@ -300,11 +300,11 @@
 							</tr>
 							<tr>
 								<th><?php echo _('Tag'); ?></th>
-								<td><a href="<?php echo $tplHelper->makeTagUrl($spot); ?>" title='<?php echo sprintf(_('Search spots with the tag: %s'), $spot['tag']); ?>'><?php echo $spot['tag']; ?></a> 
+								<td><a href="<?php echo $tplHelper->makeTagUrl($spot); ?>" rel="tooltip" title='<?php echo sprintf(_('Search spots with the tag: %s'), $spot['tag']); ?>'><?php echo $spot['tag']; ?></a> 
 								<?php 
 								if ((!empty($spot['tag'])) && ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_filters, ''))) { 
 								?> 
-								<a href="#" class="addtagasfilter" title="<?php echo _("Add filter for this tag"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'Tag', '<?php echo urlencode($spot['tag']); ?>', 'Zoek op tag &quot;<?php echo urlencode($spot['tag']); ?>&quot;', 'addtagasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="#" class="addtagasfilter" rel="tooltip" title="<?php echo _("Add filter for this tag"); ?>" onclick="addSpotFilter('<?php echo $tplHelper->generateXsrfCookie('editfilterform'); ?>', 'Tag', '<?php echo urlencode($spot['tag']); ?>', 'Zoek op tag &quot;<?php echo urlencode($spot['tag']); ?>&quot;', 'addtagasfilter'); return false; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 								<?php 
 								} 
 								?> 
@@ -322,7 +322,7 @@
 							?>		
 							<tr>
 								<th><?php echo _('NZB'); ?></th>
-								<td><a href='<?php echo $tplHelper->makeNzbUrl($spot); ?>' title='<?php echo _('Download NZB (n)'); ?>'><?php echo _('NZB'); ?></a></td>
+								<td><a href='<?php echo $tplHelper->makeNzbUrl($spot); ?>' rel="tooltip" title='<?php echo _('Download NZB (n)'); ?>'><?php echo _('NZB'); ?></a></td>
 							</tr>
 							<?php 
 							} 
@@ -426,7 +426,7 @@ require_once "includes/footer.inc.php";
         		<h4 class="modal-title"><?php echo $spot['title'];?></h4>
       		</div>
             <div class="modal-body">
-                <img src="<?php echo $tplHelper->makeImageUrl($spot, 520, 300); ?>" alt="<?php echo $spot['title'];?>" />
+                <img src="<?php echo $tplHelper->makeImageUrl($spot, 520, 500); ?>" alt="<?php echo $spot['title'];?>" />
             </div>
             <div class="modal-footer">
         		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -45,6 +45,9 @@ $(document).ready(function(){
     $('[rel="tooltip"]').tooltip({
         placement : 'left'
     });
+    $('[rel="tooltip-down"]').tooltip({
+        placement : 'bottom'
+    });
 });
 </script>
              
