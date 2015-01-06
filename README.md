@@ -23,12 +23,14 @@ $settings['valid_templates'] = array('bootspot' => 'BootSpot');
 * Add a new group using the "+" button.
 * Name it "Bootspot" and save it. Now edit it's permissions.
 * In the menu select "Let user choose their Template" and enter "bootspot" in the ObjectID field.
+* Finally you just have to add the new group to the desired users.
 * After you saved it you are able to select the template in the Preferences menu.
 * REMEMBER!! This project is far from done. Any error's or failures are not my responsibility.
 
 ## Used resources
 * Spotweb
-* Bootstrap 3
+* JQuery 1.11.2
+* Bootstrap 3.3.1
+* FontAwesome 4.2.0
 * Bootswatch Themes (Yeti)
-* FontAwesome icon's
 * Bootstrap Datepicker by Eternicode
