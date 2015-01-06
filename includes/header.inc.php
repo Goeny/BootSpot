@@ -2,15 +2,15 @@
 <html>
 	<head>
 	<!-- JQuery -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+	<script src="templates/bootspot/js/jquery.min.js" ></script>
 	<!-- FontAwesome -->
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<link href="templates/bootspot/css/font-awesome.css" rel="stylesheet">
 	<!-- Bootswatch Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="templates/bootspot/css/bootstrap.min.css">
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="http://bootswatch.com/assets/css/bootswatch.min.css">
+	<link rel="stylesheet" href="templates/bootspot/css/bootswatch.min.css">
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="templates/bootspot/js/bootstrap.min.js"></script>
 	<!-- Custom theme related css -->
 	<link rel="stylesheet" href="templates/bootspot/css/custom-bootstrap.css">
 	
