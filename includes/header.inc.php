@@ -23,7 +23,7 @@
 	<script src="templates/bootspot/js/bootstrap-lightbox.min.js"></script>
 	
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-		<title>SpotWeb - <?php echo $pagetitle?></title>
+		<title>SpotWebs - <?php echo $pagetitle?></title>
 		<meta name="generator" content="SpotWeb v<?php echo SPOTWEB_VERSION; ?>">
 		<?php 
 			if ($settings->get('deny_robots')) { 

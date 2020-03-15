@@ -5,31 +5,41 @@
 
             return ;
         } else {
-            showResults($result, array('renderhtml' => 1));
+            showResults($result, ['renderhtml' => 1]);
         } # else
     } # if
 
-    require "includes/header.inc.php";
-    require "includes/form-messages.inc.php";
+    require __DIR__.'/includes/header.inc.php';
+    require __DIR__.'/includes/form-messages.inc.php';
     
     $nntp_nzb = $this->_settings->get('nntp_nzb');
     $nntp_hdr = $this->_settings->get('nntp_hdr');
     $nntp_post = $this->_settings->get('nntp_post');
+	
+	if (!isset($nntp_nzb['verifyname'])) {
+        $nntp_nzb['verifyname'] = true;
+    }
+    if (!isset($nntp_hdr['verifyname'])) {
+        $nntp_nzb['verifyname'] = true;
+    }
+    if (!isset($nntp_post['verifyname'])) {
+        $nntp_nzb['verifyname'] = true;
+    }
 
     $tmpArDiff = array_diff_assoc($nntp_hdr, $nntp_nzb);
     if ((empty($tmpArDiff)) || (empty($nntp_hdr['host']))) {
         $nntp_hdr['isadummy'] = true;
-    } # if
+    } // if
 
     $tmpArDiff = array_diff_assoc($nntp_post, $nntp_nzb);
     if ((empty($tmpArDiff)) || (empty($nntp_post['host']))) {
         $nntp_post['isadummy'] = true;
-    } # if
+    } // if
 
     $retrieve_newer_than = $this->_settings->get('retrieve_newer_than');
     if ($retrieve_newer_than < 1254373200) {
         $retrieve_newer_than = 1254373200; // 2009-11-01
-    } # if
+    } // if
     echo "<script type='text/javascript'>var retrieveNewerThanDate = '" . strftime('%d-%m-%Y', $retrieve_newer_than) . "';</script>";
 ?>
 
@@ -82,14 +92,12 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
                     <div class="well well-sm">
                     <!-- Add some explanation about the MS translator API -->
                     <p>
-                        <?php echo _('Spotweb can use the Microsoft Translator API to translate comments and Spot description to the users native language. This requires a so-called Client ID and a SecretID which you need to <a href="http://blogs.msdn.com/b/translation/p/gettingstarted1.aspx">request at Microsoft</a>. Please enter the values in below fields.'); ?>
+                        <?php echo _('Spotweb can use the Microsoft Translator API to translate comments and Spot description to the users native language. This requires either a subscription key from Microsoft Cognitive Services in the Azure Portal. You can find instructions at <a href="http://docs.microsofttranslator.com/text-translate.html">http://docs.microsofttranslator.com/text-translate.html</a>. Please enter the subscription key in the field below.'); ?>
                     </p>
-                    <dt><label for="editsettingsform[ms_translator_clientid]"><?php echo _('Microsoft Translator API - Client ID'); ?></label></dt>
-                    <dd><input type="text" name="editsettingsform[ms_translator_clientid]" value="<?php echo htmlspecialchars($this->_settings->get('ms_translator_clientid'), ENT_QUOTES); ?>"></dd>
                     </div>
                     <div class="well well-sm">
-                    <dt><label for="editsettingsform[ms_translator_clientsecret]"><?php echo _('Microsoft Translator API - Secret ID'); ?></label></dt>
-                    <dd><input type="text" name="editsettingsform[ms_translator_clientsecret]" value="<?php echo htmlspecialchars($this->_settings->get('ms_translator_clientsecret'), ENT_QUOTES); ?>"></dd>
+					<dt><label for="editsettingsform[ms_translator_subscriptionkey]"><?php echo _('Microsoft Cognitive Services - Subscription Key'); ?></label></dt>
+                    <dd><input type="text" name="editsettingsform[ms_translator_subscriptionkey]" value="<?php echo htmlspecialchars($this->_settings->get('ms_translator_subscriptionkey'), ENT_QUOTES); ?>"></dd>
 				    </div>
                 </dl>
 
@@ -125,6 +133,10 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
 							<option <?php if ($nntp_nzb['enc'] == 'ssl') { echo 'selected="selected"'; } ?> value="ssl">SSL</option>
 							<option <?php if ($nntp_nzb['enc'] == 'tls') { echo 'selected="selected"'; } ?> value="tls">TLS</option>
 						</select>
+						<div class="well well-sm">
+						<dt><label for="editsettingsform[nntp_nzb][verifyname]"><?php echo '&nbsp;'; echo _('Verify name (CN) on certificate'); ?></label></dt>
+                        <dd><input type="checkbox" name="editsettingsform[nntp_nzb][verifyname][switch]" style="vertical-align:bottom" id="use_verifyname_nzb" <?php if ($nntp_nzb['verifyname']) {  echo 'checked="checked"'; } ?>></dd>
+						</div>
 						</div>
 					</fieldset>
 					<div class="well well-sm">
@@ -168,6 +180,10 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
 							<option <?php if ($nntp_hdr['enc'] == 'ssl') { echo 'selected="selected"'; } ?> value="ssl">SSL</option>
 							<option <?php if ($nntp_hdr['enc'] == 'tls') { echo 'selected="selected"'; } ?> value="tls">TLS</option>
 						</select>
+						<div class="well well-sm">
+						<dt><label for="editsettingsform[nntp_hdr][verifyname]"><?php echo '&nbsp;'; echo _('Verify name (CN) on certificate'); ?></label></dt>
+                        <dd><input type="checkbox" name="editsettingsform[nntp_hdr][verifyname][switch]" style="vertical-align:bottom" id="use_verifyname_hdr" <?php if ($nntp_hdr['verifyname']) { echo 'checked="checked"'; } ?>></dd>
+						</div>
 						</div>
 					</fieldset>
 					<div class="well well-sm">
@@ -211,6 +227,10 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
 							<option <?php if ($nntp_post['enc'] == 'ssl') { echo 'selected="selected"'; } ?> value="ssl">SSL</option>
 							<option <?php if ($nntp_post['enc'] == 'tls') { echo 'selected="selected"'; } ?> value="tls">TLS</option>
 						</select>
+						<div class="well well-sm">
+						<dt><label for="editsettingsform[nntp_post][verifyname]"><?php echo '&nbsp;'; echo _('Verify name (CN) on certificate'); ?></label></dt>
+                        <dd><input type="checkbox" name="editsettingsform[nntp_post][verifyname][switch]" style="vertical-align:bottom" id="use_verifyname_post" <?php if ($nntp_post['verifyname']) { echo 'checked="checked"'; } ?>></dd>
+						</div>
 						</div>
 					</fieldset>
 					<div class="well well-sm">
@@ -278,10 +298,6 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
 					<dt><label for="editsettingsform[retrieve_reports]"><?php echo _('Retrieve reports'); ?></label></dt>
 					<dd><input type="checkbox" name="editsettingsform[retrieve_reports]" <?php if ($this->_settings->get('retrieve_reports')) { echo 'checked="checked"'; } ?>></dd>
 					</div>
-					<div class="well well-sm">
-                    <dt><label for="editsettingsform[create_collections]"><?php echo _('Create collections of multiple spots?'); ?></label></dt>
-                    <dd><input type="checkbox" name="editsettingsform[create_collections]" <?php if ($this->_settings->get('create_collections')) { echo 'checked="checked"'; } ?>></dd>
-					</div>
 				</dl>
 			</fieldset>
 		</div>
@@ -308,6 +324,18 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_edit_settings, '')) {
 						<option <?php if ($this->_settings->get('spot_moderation') == 'act') { echo 'selected="selected"'; } ?> value="act"><?php echo _('Delete moderated spots'); ?></option>
 						<option <?php if ($this->_settings->get('spot_moderation') == 'markspot') { echo 'selected="selected"'; } ?> value="markspot"><?php echo _('Mark moderated spots as moderated'); ?></option>
 					</select></dd>
+					</div>
+					<div class="well well-sm">
+					<dt><label for="editsettingsform[imageover_subcats]"><?php echo _('Enable imagepreview in spot overview'); ?></label></dt>
+					<dd><input type="checkbox" name="editsettingsform[imageover_subcats]" <?php if ($this->_settings->get('imageover_subcats')) { echo 'checked="checked"'; } ?>></dd>
+					</div>
+					<div class="well well-sm">
+					<dt><label for="editsettingsform[highlight]"><?php echo _('Highlight spots based on amount of comments'); ?></label></dt>
+					<dd><input type="checkbox" name="editsettingsform[highlight]" <?php if ($this->_settings->get('highlight')) { echo 'checked="checked"'; } ?>></dd>
+					</div>					
+					<div class="well well-sm">
+					<dt><label for="editsettingsform[highcount]"><?php echo _('Amount of comments to highlight spot'); ?></label></dt>
+					<dd><input type="text" name="editsettingsform[highcount]" value="<?php echo htmlspecialchars($this->_settings->get('highcount'), ENT_QUOTES); ?>"></dd>
 					</div>
 					<div class="well well-sm">
 					<dt><label for="editsettingsform[prepare_statistics]"><?php echo _('Prepare statistics during retrieve'); ?></label></dt>
@@ -358,4 +386,4 @@ $("[class='enabler']").bootstrapSwitch();
 </script>
 <?php
     $toRunJsCode = 'initializeSettingsPage();';
-	require_once "includes/footer.inc.php";
+	require_once __DIR__.'/includes/footer.inc.php';

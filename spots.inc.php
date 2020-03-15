@@ -2,9 +2,9 @@
 
 	/* Render de header en filter templates */
 	if (!isset($data['spotsonly'])) {
-		require_once "includes/header.inc.php";
-		require_once "includes/filters.inc.php";
-	} # if
+		require_once __DIR__.'/includes/header.inc.php';
+        require_once __DIR__.'/includes/filters.inc.php';
+	} // if
 
     SpotTiming::start('tpl:spotsinc-afterinclude');
 
@@ -29,8 +29,8 @@
 	if (!$noResults) { 
 		if ( (isset($spots[0]['mypostedspot'])) || (isset($spots[0]['myseenspot'])) || (isset($spots[0]['mywatchedspot'])) ) {
 			$newCommentCount = $tplHelper->getNewCommentCountFor($spots);
-		} # if
-	} # if
+		} // if
+	} // if
 ?>
 	<div class="col-xs-12 col-sm-6 col-lg-9">
 		<div class="panel panel-primary">
@@ -51,7 +51,7 @@
 							<?php }
 							if ($show_comments) {
 								echo "<th class='comments'> <a title='" . _('Number of comments') . "' href='" . $tplHelper->makeToggleSortUrl('index', 'commentcount', 'DESC') . "'><i class='fa fa-comments fa-2x'></i> </a> </th>";
-							} # if ?>
+							} // if ?>
 							<th class='genre'> <?php echo _('Genre'); ?> </th> 
 							<th class='poster'> <span class="sortby">	<a class="up" href="<?php echo $tplHelper->makeToggleSortUrl('index', 'poster', 'DESC'); ?>" title="<?php echo _('Sort on sender [0-Z]'); ?>"><i class="fa fa-unsorted"></i> <?php echo _('Sender'); ?></a></th> 
 							<th class='date'> <span class="sortby">		<a class="up" href="<?php echo $tplHelper->makeToggleSortUrl('index', 'stamp', 'DESC'); ?>" title="<?php echo _('Sort on age [ascending]'); ?>"><i class="fa fa-unsorted"></i> <?php echo ($currentSession['user']['prefs']['date_formatting'] == 'human') ? _('Age') : _('Date'); ?></a></th> 
@@ -88,10 +88,10 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		if ($nzbHandlingTmp['action'] != 'disable') { $colSpan++; }
 		
 		echo "\t\t\t\t\t\t\t<tr class='noresults'><td colspan='" . $colSpan . "'>" . _('No results found') . "</td></tr>\r\n";
-	} # if
+	} // if
 	
 	foreach($spots as $spot) {
-		# Format the spot header
+		// Format the spot header
 		$spot = $tplHelper->formatSpotHeader($spot);
 		$newSpotClass = ($tplHelper->isSpotNew($spot)) ? 'new' : '';
         $tipTipClass = $show_mouseover_subcats ? 'showTipTip' : '';
@@ -99,7 +99,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		$commentCountValue = $spot['commentcount'];
 		if (isset($newCommentCount[$spot['messageid']])) {
 			$commentCountValue .= '*';
-		} # if
+		} // if
 
 		$catMap = array();
         foreach(array('a', 'b', 'c', 'd', 'z') as $subcatType) {
@@ -113,12 +113,15 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
                         $catMap[$subCatDesc] .= ', ' . $catDesc;
                     } else {
                         $catMap[$subCatDesc] = $catDesc;
-                    } # else
-                } # if
-        	} # foreach
-        } # foreach
-        $catMap['image'] = '<img src="?page=getimage&messageid='.$spot['messageid'].'&image[height]=260&image[width]=260" height="350px" width="auto">';
-		$catData = json_encode($catMap);
+                    } // else
+                } // if
+        	} // foreach
+        } // foreach
+        
+		if ($settings->get('imageover_subcats') > 0) {
+        $catMap['image'] = '<center><br><img src="?page=getimage&messageid='.$spot['messageid'].'&image[height]=260&image[width]=130" height="175px" width="auto"></center>';
+        }
+        $catData = json_encode($catMap);
 	
 		if($spot['rating'] == 0) {
 			$rating = '';
@@ -153,15 +156,15 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			echo " downloadedspot";
 			
 			$dateTitleText .= "\r\n " . _("downloaded on") . ' ' . $tplHelper->formatDate($spot['downloadstamp'], 'force_spotlist');
- 		} # if
+ 		} // if
 		if ($spot['hasbeenseen']) {
 			echo " seenspot";
 
 			$dateTitleText .= "\r\n " . _("opened on") . ' ' . $tplHelper->formatDate($spot['seenstamp'], 'force_spotlist');
-		} # if
+		} // if
 		if ($spot['moderated'] != 0) {
 			echo " moderatedspot";
-		} # if
+		} // if
 		echo "'>";
 		echo "<td class='category'><a href='" . $spot['caturl'] . "' rel='tooltip' title=\"" . sprintf(_("Go to category '%s'"), $spot['catshortdesc']) . "\"><span class='label label-cat label-".$tplHelper->filter2cat($tplHelper->cat2CssClass($spot))."'>" . $spot['catshortdesc'] . "</span></a></td>" .
 			 "<td class='title " . $newSpotClass . "'><a href='" . $spot['spoturl'] . "' title='" . $spot['title'] . "'>" . $reportSpam . $rating . $markSpot . $spot['title'] . "</a></td>";
@@ -170,7 +173,7 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			echo "<td class='editspot'>";
 			echo "<a href='" . $tplHelper->makeEditSpotUrl($spot, "edit") . "' onclick=\"return openDialog('editdialogdiv', '" . _('Edit spot') ."', '?page=editspot&amp;messageid=" . urlencode($spot['messageid']) . "', null, 'autoclose', function() { window.location.reload(); }, null);\" title='" . _('Edit spot') . "'><span class='ui-icon ui-icon-pencil'></span></a>";
 			echo "</td>";
-		} # if
+		} // if
 
 		if ($show_watchlist_button) {
 			echo "<td class='watch'>";
@@ -180,8 +183,8 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 		}
 
 		if ($show_comments) {
-			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "#comments' rel='tooltip' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\"><span class='badge alert-success'>" . $commentCountValue . "</span></a></td>";
-		} # if
+			echo "<td class='comments'><a onclick='openSpot(this,\"".$spot['spoturl']."\")' class='spotlink' href='" . $spot['spoturl'] . "//comments' rel='tooltip' title=\"" . sprintf(_("%d comments on '%s'"), $spot['commentcount'], $spot['title']) . "\"><span class='badge alert-success'>" . $commentCountValue . "</span></a></td>";
+		} // if
 		
 		$markSpot = '';
 		if($spot['idtype'] == 2) {
@@ -199,46 +202,46 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 			echo "<td class='filesize'><i class='fa fa-floppy-o fa-2x' rel='tooltip' title='". $tplHelper->format_size($spot['filesize']) ."'></i></td>";
 		}
 		
-		# only display the NZB button from 24 nov or later
+		// only display the NZB button from 24 nov or later
 		if ($spot['stamp'] > 1290578400 ) {
 			if ($show_nzb_button) {
 				echo "<td class='nzb'><a href='" . $tplHelper->makeNzbUrl($spot) . "' rel='tooltip' title ='" . _('Download NZB (n)') . "' class='nzb'>NZB";
 				
 				if ($spot['hasbeendownloaded']) {
 					echo '*';
-				} # if
+				} // if
 				
 				echo "</a></td>";
-			} # if
+			} // if
 			if ($show_multinzb_checkbox) {
 				$multispotid = htmlspecialchars($spot['messageid']);
 				echo "<td class='multinzb'>";
 				echo "<input onclick='multinzb()' type='checkbox' name='".htmlspecialchars('messageid[]')."' value='".$multispotid."'>";
 				echo "</td>";
-			} # if
-			# display the SABnzbd button
+			} // if
+			// display the SABnzbd button
 			if (!empty($spot['sabnzbdurl'])) {
 				if ($spot['hasbeendownloaded']) {
 					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" rel='tooltip' title='" . _('Add NZB to SABnzbd queue (you already downloaded this spot) (s)') . "'><i class='sab_".$spot['id']." fa fa-check fa-2x'></i> </a></td>";
 				} else {
 					echo "<td class='sabnzbd'><a onclick=\"downloadSabnzbd('".$spot['id']."','".$spot['sabnzbdurl']."','" . $spot['nzbhandlertype'] . "')\" rel='tooltip' title='" . _('Add NZB to SABnzbd queue (s)'). "'><i class='sab_".$spot['id']." fa fa-download fa-2x'></i> </a></td>";
-				} # else
-			} # if
+				} // else
+			} // if
 		} else {
 			if ($show_nzb_button) {
 				echo "<td class='nzb'> &nbsp; </td>";
-			} # if
+			} // if
 			
-			# display (empty) MultiNZB td
+			// display (empty) MultiNZB td
 			if ($show_multinzb_checkbox) { 
 				echo "<td class='multinzb'> &nbsp; </td>";
 			}
 
-			# display the sabnzbd button
+			// display the sabnzbd button
 			if (!empty($spot['sabnzbdurl'])) {
 				echo "<td class='sabnzbd'> &nbsp; </td>";
-			} # if
-		} # else
+			} // if
+		} // else
 		
 		echo "</tr>\r\n";
 	}
@@ -279,6 +282,6 @@ if (($tplHelper->allowed(SpotSecurity::spotsec_download_integration, $nzbHandlin
 	if (!isset($data['spotsonly'])) {
 		/* Render de footer template */
 		require_once "includes/footer.inc.php";
-	} # if
+	} // if
 
     SpotTiming::stop('tpl:spotsinc-afterinclude');

@@ -1,5 +1,5 @@
 <?php
-    include "includes/form-messages.inc.php";
+    require __DIR__.'/includes/form-messages.inc.php';
 
     $pagetitle = _('Change user preferences');
 
@@ -9,10 +9,11 @@
         /* Redirect to the calling page */
         if ($result->isSuccess()) {
             $tplHelper->redirect($http_referer);
-            return ;
-        } # if
+            
+			return;
+        } // if
 
-        require "includes/header.inc.php";
+        require __DIR__.'/includes/header.inc.php';
         echo '</div>';
     } else {
         if ($result->isSubmitted()) {
@@ -20,12 +21,12 @@
             showResults($result);
 
             return;
-        } # if
-    } # else
+        } // if
+    } // else
 
 if (!$dialogembedded) { ?>
 	<div id='toolbar'>
-		<div class="closeuserpreferences"><p><a class='toggle' href='<?php echo $tplHelper->makeBaseUrl('path');?>'><?php echo _('Back to mainview'); ?></a></p>
+		<div class="closeuserpreferences"><p><a class='toggle' href='<?php echo $tplHelper->makeBaseUrl('path'); ?>'><?php echo _('Back to mainview'); ?></a></p>
 		</div>
 	</div>
 <?php } ?>
@@ -39,7 +40,7 @@ if (!$dialogembedded) { ?>
 <?php } ?>
 
 <?php
-    showResults($result, array('renderhtml' => 1));
+    showResults($result, ['renderhtml' => 1]);
 ?>
 
 	<div id="edituserpreferencetabs" class="ui-tabs">
@@ -72,7 +73,10 @@ if (!$dialogembedded) { ?>
 <?php } ?>
 	
 		</ul>
-			
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">			
 		<div id="edituserpreftab-1" class="ui-tabs-hide">
 			<fieldset>
 				<dl>
@@ -518,7 +522,10 @@ if (!$dialogembedded) { ?>
 		</div>
 	</div>
 </form>
-
+      </div>
+    </div>
+  </div>
+</div>
 <?php
 	function showNotificationOptions($provider, $edituserprefsform, $tplHelper) {
 		echo "<fieldset>" . PHP_EOL;
@@ -528,70 +535,69 @@ if (!$dialogembedded) { ?>
 			echo "<dd><input type=\"checkbox\" name=\"edituserprefsform[notifications][" . $provider . "][events][watchlist_handled]\"";
 			if ($edituserprefsform['notifications'][$provider]['events']['watchlist_handled']) {
 				echo "checked=\"checked\"";
-			} # if
+			} // if
 			echo "></dd>" . PHP_EOL . PHP_EOL;
-		} # if
+		} // if
 
 		if ($tplHelper->allowed(SpotSecurity::spotsec_send_notifications_types, 'nzb_handled')) {
 			echo "<dt><label for=\"edituserprefsform[notifications][" . $provider . "][events][nzb_handled]\">" . _("Send message when a NZB file is send? Doesn't work for client-SABnzbd.") . "</label></dt>" . PHP_EOL;
 			echo "<dd><input type=\"checkbox\" name=\"edituserprefsform[notifications][" . $provider . "][events][nzb_handled]\"";
 			if ($edituserprefsform['notifications'][$provider]['events']['nzb_handled']) {
 				echo "checked=\"checked\"";
-			} # if
+			} // if
 			echo "></dd>" . PHP_EOL . PHP_EOL;
-		} # if
+		} // if
 
 		if ($tplHelper->allowed(SpotSecurity::spotsec_send_notifications_types, 'retriever_finished')) {
 			echo "<dt><label for=\"edituserprefsform[notifications][" . $provider . "][events][retriever_finished]\">" . _('Send message when updating spots is finish?') . "</label></dt>" . PHP_EOL;
 			echo "<dd><input type=\"checkbox\" name=\"edituserprefsform[notifications][" . $provider . "][events][retriever_finished]\"";
 			if ($edituserprefsform['notifications'][$provider]['events']['retriever_finished']) {
 				echo "checked=\"checked\"";
-			} # if
+			} // if
 			echo "></dd>" . PHP_EOL . PHP_EOL;
-		} # if
+		} // if
 
 		if ($tplHelper->allowed(SpotSecurity::spotsec_send_notifications_types, 'report_posted') && $tplHelper->allowed(SpotSecurity::spotsec_report_spam, '')) {
 			echo "<dt><label for=\"edituserprefsform[notifications][" . $provider . "][events][report_posted]\">" . _('Send message when Spam Reports has been send?') . "</label></dt>" . PHP_EOL;
 			echo "<dd><input type=\"checkbox\" name=\"edituserprefsform[notifications][" . $provider . "][events][report_posted]\"";
 			if ($edituserprefsform['notifications'][$provider]['events']['report_posted']) {
 				echo "checked=\"checked\"";
-			} # if
+			} // if
 			echo "></dd>" . PHP_EOL . PHP_EOL;
-		} # if
+		} // if
 
 		if ($tplHelper->allowed(SpotSecurity::spotsec_send_notifications_types, 'spot_posted') && $tplHelper->allowed(SpotSecurity::spotsec_post_spot, '')) {
 			echo "<dt><label for=\"edituserprefsform[notifications][" . $provider . "][events][spot_posted]\">" . _('Send message when posting a spot has finished?') . "</label></dt>" . PHP_EOL;
 			echo "<dd><input type=\"checkbox\" name=\"edituserprefsform[notifications][" . $provider . "][events][spot_posted]\"";
 			if ($edituserprefsform['notifications'][$provider]['events']['spot_posted']) {
 				echo "checked=\"checked\"";
-			} # if
+			} // if
 			echo "></dd>" . PHP_EOL . PHP_EOL;
-		} # if
+		} // if
 
 		if ($tplHelper->allowed(SpotSecurity::spotsec_send_notifications_types, 'user_added')) {
 			echo "<dt><label for=\"edituserprefsform[notifications][" . $provider . "][events][user_added]\">" . _('Send message when a user has been added?') . "</label></dt>" . PHP_EOL;
 			echo "<dd><input type=\"checkbox\" name=\"edituserprefsform[notifications][" . $provider . "][events][user_added]\"";
 			if ($edituserprefsform['notifications'][$provider]['events']['user_added']) {
 				echo "checked=\"checked\"";
-			} # if
+			} // if
 			echo "></dd>" . PHP_EOL . PHP_EOL;
-		} # if
+		} // if
 
 		if ($tplHelper->allowed(SpotSecurity::spotsec_send_notifications_types, 'newspots_for_filter')) {
 			echo "<dt><label for=\"edituserprefsform[notifications][" . $provider . "][events][newspots_for_filter]\">" . _('Send message when an enabled filter has new spots available?') . "</label></dt>" . PHP_EOL;
 			echo "<dd><input type=\"checkbox\" name=\"edituserprefsform[notifications][" . $provider . "][events][newspots_for_filter]\"";
 			if ($edituserprefsform['notifications'][$provider]['events']['newspots_for_filter']) {
 				echo "checked=\"checked\"";
-			} # if
+			} // if
 			echo "></dd>" . PHP_EOL . PHP_EOL;
-		} # if
+		} // if
 
 		echo "</fieldset>" . PHP_EOL;
-	} # notificationOptions
+	} // notificationOptions
 
 // Initialzie the user preferences screen
 if (!$dialogembedded) {
     $toRunJsCode = 'initializeUserPreferencesScreen();';
-    require_once "includes/footer.inc.php";
-
-} # if
+    require_once __DIR__.'/includes/footer.inc.php';
+} // if

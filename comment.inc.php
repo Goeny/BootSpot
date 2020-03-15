@@ -1,5 +1,5 @@
 <?php
-	# First retrieve the needed parameters
+	// First retrieve the needed parameters
 	isset($messageId) ? false : $messageId = $tplHelper->getParam('messageid');
 	isset($pageNr) ? false : $pageNr = $tplHelper->getParam('pagenr');
 	isset($perPage) ? false : $perPage = $tplHelper->getParam('perpage');
@@ -11,14 +11,14 @@
 	 */
 	isset($spot) ? false : $spot = $tplHelper->getFullSpot($messageId, true);
 
-	# is the user allowed to blacklist spotters?
+	// is the user allowed to blacklist spotters?
 	$perm_allow_blackList = ($tplHelper->allowed(SpotSecurity::spotsec_blacklist_spotter, ''));
 	
-	# Get the spot comments for each $perPage comments
-    $comments = $tplHelper->getSpotComments($messageId, ($pageNr * $perPage), $perPage);
+	// Get the spot comments for each $perPage comments
+    $comments = $tplHelper->getSpotComments($messageId, $spot['prevMsgids'], ($pageNr * $perPage), $perPage);
 	$comments = $tplHelper->formatComments($comments);
 
-	# Does the user want to see avatars?
+	// Does the user want to see avatars?
 	$show_avatars = $currentSession['user']['prefs']['show_avatars'];
 	
 	foreach($comments as $comment) {
@@ -73,5 +73,5 @@
 					</blockquote>
 					</div>
 <?php	
-			} # if
-	} # for
+			} // if
+	} // for

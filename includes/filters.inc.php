@@ -35,12 +35,7 @@
 						<?php if ($tplHelper->allowed(SpotSecurity::spotsec_keep_own_seenlist, '')) { ?>
 							<li><a href="<?php echo $tplHelper->getPageUrl('markallasread'); ?>" onclick="markAsRead()" class="greyButton markasread"><i class="fa fa-eye-slash"></i> <?php echo _('Mark everything as read'); ?></a></li>
 						<?php } ?>
-						<?php if ($tplHelper->allowed(SpotSecurity::spotsec_view_spotweb_updates, '')) { 
-						?>
-							<li><a href="?page=versioncheck" data-target="#myModal" data-toggle="modal" title="<?php echo _('Spotweb updates'); ?>"><i class="fa fa-medkit"></i> <?php echo _('Spotweb updates');?></a></li>
-						<?php } ?>
-						<li><a data-target="#mySAB" data-toggle="modal"><i class="fa fa-download"></i> SABnzbd Panel</a></li>
-						<li><a href="https://github.com/Goeny/BootSpot" target="_blank"><i class="fa fa-github-alt"></i> BootSpot on Github</a></li>
+						<li><a data-target="#mySAB" data-toggle="modal"><i class="fa fa-download"></i> SABnzbd Panel</a></li>						
 					</ul>
 				</li>
 			</ul>	
@@ -136,7 +131,7 @@
 					</script>
 					<input type="hidden" id="search-tree" name="search[tree]" value="<?php echo $tplHelper->categoryListToDynatree(); ?>">
 					<div class="input-group">
-						<input class="form-control col-lg-8" type="text" name="search[text]" placeholder="Zoeken" value="<?php echo htmlspecialchars($searchText); ?>"><i class="icon-search"></i>
+						<input class="form-control input-lg col-lg-8" type="text" name="search[text]" placeholder="Search.." value="<?php echo htmlspecialchars($searchText); ?>"><i class="icon-search"></i>
 						<span class="input-group-btn">
 							<button class="btn btn-default" type='submit' onclick='$("#searchfilter-includeprevfilter-toggle").val("true");' title='<?php echo _('Search within current filters'); ?>'><i class='fa fa-search-plus'></i></button>
 						</span>

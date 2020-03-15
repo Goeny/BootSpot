@@ -1,9 +1,12 @@
 <?php
-    require "includes/form-messages.inc.php";
-
+    require __DIR__.'/includes/form-messages.inc.php';
 
 if (!showResults($result)) {
-?>
+    ?>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create User</h5>
 <form class="createuserform" name="createuserform" action="<?php echo $tplHelper->makeCreateUserAction(); ?>" method="post">
 	<input type="hidden" name="createuserform[xsrfid]" value="<?php echo $tplHelper->generateXsrfCookie('createuserform'); ?>">
 	<fieldset>
@@ -28,5 +31,9 @@ if (!showResults($result)) {
 		</dl>
 	</fieldset>
 </form>
-
-<?php }
+      </div>
+    </div>
+  </div>
+</div>
+<?php
+}
